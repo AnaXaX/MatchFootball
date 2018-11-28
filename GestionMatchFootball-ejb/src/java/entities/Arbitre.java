@@ -45,6 +45,22 @@ public class Arbitre implements Serializable {
     
     @OneToMany(mappedBy = "arbitre")
     private List<Match> historiqueMatchs;
+
+    public List<Match> getHistoriqueMatchs() {
+        return historiqueMatchs;
+    }
+    
+    /*Pour garder la synchronisation/relation des listes et BD*/
+    public void addHistoriqueMatch(Match m) {
+        historiqueMatchs.add(m);
+        m.setArbitre(this);
+    }
+    
+    public void removeHistoriqueMatch(Match m) {
+        historiqueMatchs.remove(m);
+        m.setArbitre(null);
+    }
+    /*Pour garder la synchronisation/relation des listes et BD*/
         
     @Column(nullable=false,unique=false)
     private String prenom;

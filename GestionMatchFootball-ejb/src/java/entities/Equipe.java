@@ -6,10 +6,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,14 +23,35 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Equipe implements Serializable {
-    /*
-    public Equipe(){
-        effectif = new ArrayList<Joueur>();
-        historiqueMatchs = new ArrayList<Match>();
+
+    public List<Match> getHistoriqueMatchs() {
+        List<Match> historiqueMatchs = new ArrayList<>();
+        historiqueMatchs.addAll(historiqueMatchsRecus);
+        historiqueMatchs.addAll(historiqueMatchsInvites);
+        return historiqueMatchs;
     }
-*/
-    @OneToMany(mappedBy = "equipeUne")
-    private List<Match> historiqueMatchs;
+
+    @OneToMany(mappedBy = "equipeInvitee")
+    private List<Match> historiqueMatchsInvites;
+
+    public List<Match> getHistoriqueMatchsRecus() {
+        return historiqueMatchsRecus;
+    }
+
+    public void setHistoriqueMatchsRecus(List<Match> historiqueMatchsRecus) {
+        this.historiqueMatchsRecus = historiqueMatchsRecus;
+    }
+
+    @OneToMany(mappedBy = "equipeReceveuse")
+    private List<Match> historiqueMatchsRecus;
+
+    public List<Match> getHistoriqueMatchsInvites() {
+        return historiqueMatchsInvites;
+    }
+
+    public void setHistoriqueMatchsInvites(List<Match> historiqueMatchsInvites) {
+        this.historiqueMatchsInvites = historiqueMatchsInvites;
+    }
 
     @OneToMany(mappedBy = "equipe")
     private List<Joueur> effectif;
@@ -45,7 +64,18 @@ public class Equipe implements Serializable {
         this.effectif = effectif;
     }
     
-    /*Pour garder la synchronisation/relation de la liste effectif*/
+    @Column(nullable=false,unique=false)
+    private int points;
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    /*Pour garder la synchronisation/relation des listes et BD*/
     public void addJoueurEffectif(Joueur joueur) {
         effectif.add(joueur);
         joueur.setEquipe(this);
@@ -56,8 +86,26 @@ public class Equipe implements Serializable {
         joueur.setEquipe(null);
     }
     
-    /*Pour garder la synchronisation/relation de la liste effectif*/
-  
+    public void addHistoriqueMatchRecus(Match m) {
+        historiqueMatchsRecus.add(m);
+        m.setEquipeReceveuse(this);
+    }
+    
+    public void removeHistoriqueMatchRecus(Match m) {
+        historiqueMatchsRecus.remove(m);
+        m.setEquipeReceveuse(null);
+    }
+    
+    public void addHistoriqueMatchInvites(Match m) {
+        historiqueMatchsInvites.add(m);
+        m.setEquipeInvitee(this);
+    }
+    
+    public void removeHistoriqueMatchInvites(Match m) {
+        historiqueMatchsInvites.remove(m);
+        m.setEquipeInvitee(null);
+    }
+    /*Pour garder la synchronisation/relation des listes et BD*/  
     
     @ManyToOne
     private Entraineur entraineur;

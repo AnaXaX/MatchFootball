@@ -79,20 +79,22 @@ public class AccesFederation extends HttpServlet {
         
         /*Création Joueur*/
             /*Choix équipe pour le joueur, donc affichage des équipes*/
-             if (act.equals("afficherEquipe")) {
-                jspClient = "/federation/CreerJoueur.jsp";
+        
+            /*if (act.equals("affecterJoueurEquipe")) {
+                jspClient = "/federation/AffecterJoueurEquipe.jsp";
                 List<Equipe> listEquipes = sessionFederation.listEquipes();
                 request.setAttribute("listEquipes", listEquipes);
-          }
-          /*une fois le choix récupérer de la liste des équipes on crée le joueur*/
-          if (act.equals("creerJoueur")) {
-            if(request.getParameter("nom").trim().isEmpty() || request.getParameter("equipeID").trim().isEmpty()){
+                List<Joueur> listJoueurs = sessionFederation.
+        }*/
+
+        if (act.equals("creerJoueur")) {
+            if(request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty()){
                 jspClient = "/federation/CreerJoueur.jsp";
                 List<Equipe> listEquipes = sessionFederation.listEquipes();
                 request.setAttribute("listEquipes", listEquipes);
                 request.setAttribute("msgError", ERREUR_CHAMP);
             }else{          
-                sessionFederation.creerJoueur(request.getParameter("nom"), request.getParameter("prenom"), sessionFederation.rechercheEquipe(Long.parseLong(request.getParameter("equipeID"))));
+                sessionFederation.creerJoueur(request.getParameter("nom"), request.getParameter("prenom"));
                 jspClient = "/federation/Menu.jsp";
             }
             jspClient = "/federation/Menu.jsp";

@@ -1,5 +1,5 @@
-<%@page import="entities.Equipe"%>
-<%@page import="java.util.List"%>
+<%--@page import="entities.Equipe"--%>
+<%--@page import="java.util.List"--%>
 <!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette interface-->
 <%
     RequestDispatcher rd = request.getRequestDispatcher("../Menu.jsp");
@@ -7,7 +7,7 @@
         rd.forward(request, response);
     }
 %>
-<jsp:useBean id="listEquipes" scope="request" class="java.util.List"></jsp:useBean>
+<%-- <jsp:useBean id="listEquipes" scope="request" class="java.util.List"></jsp:useBean> --%>
 <%@ include file="../header.jsp"%>
 
 <section class="section" style="margin-top:2rem">
@@ -29,6 +29,7 @@
             </p>
         </div>
 
+        <%--
         <div class="field">
           <div class="control has-icons-left">
             <div class="select is-large is-fullwidth has-text-centered">
@@ -47,6 +48,7 @@
             </div>
           </div>
         </div>
+        --%>
         <input value="creerJoueur" name="action" type="hidden">
         <input style="margin-top: 1rem" class="button is-large is-success" value="Créer le joueur" type="submit">
     </form>          

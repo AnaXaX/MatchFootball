@@ -26,7 +26,7 @@ public interface SessionFederationLocal {
 
     void creerArbitre(String nom, String prenom, String login, String mdp);
 
-    void creerJoueur(String nom, String prenom, Equipe equipe);
+    void creerJoueur(String nom, String prenom);
 
     Entraineur rechercheEntraineur(long id);
 
@@ -35,5 +35,8 @@ public interface SessionFederationLocal {
     List listEquipes();
 
     Equipe rechercheEquipe(long id);
+
+    List listJoueurs();
+
     
 }

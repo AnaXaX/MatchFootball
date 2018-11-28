@@ -33,13 +33,20 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
     }
     
     @Override
-    public void creerJoueur(String nom, String prenom, Equipe equipe) {
+    public void creerJoueur(String nom, String prenom) {
         Joueur j = new Joueur();
         j.setNom(nom);
         j.setPrenom(prenom);
-        equipe.addJoueurEffectif(j);
         em.persist(j);
-        em.merge(equipe);
+    }
+    
+    
+    @Override
+    public void affecterEquipe(Joueur j, Equipe e) {
+        j.getHistoriqueEquipes().add(e);
+        e.addJoueurEffectif(j);
+        em.merge(j);
+        em.merge(e);
     }
     
     @Override
@@ -54,4 +61,7 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         requete.setParameter("equipe", equipe);
         return requete.getResultList();  
     }    
+
+   
+
 }

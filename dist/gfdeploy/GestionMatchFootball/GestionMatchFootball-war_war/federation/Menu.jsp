@@ -68,8 +68,9 @@
                     </article>
                 </div>
             </a>
-            
-             <a href="${pageContext.request.contextPath}/AccesFederation?action=afficherEquipe">
+                
+            <%--
+             <a href="${pageContext.request.contextPath}/AccesFederation?action=affecterJoueurEquipe">
                 <div class="box">
                     <article class="media">
                         <div class="media-left">
@@ -88,6 +89,27 @@
                     </article>
                 </div>
             </a>
+            --%>
+                 <a href="${pageContext.request.contextPath}/federation/CreerJoueur.jsp">
+                <div class="box">
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-64x64">
+                                <img src="${pageContext.request.contextPath}/img/playerPlus.png" alt="Image">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                   <strong>Créer des Joueurs</strong><br>
+                                    Vous pouvez dans ce menu créer de nouveaux joueurs
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </a>
+                            
             <form method="get" action="${pageContext.request.contextPath}/AccesFederation">                     
                 <input value="deconnexion" name="action" type="hidden">
                 <input style="margin-top: 1rem" class="button is-large is-danger" value="Déconnexion" type="submit">

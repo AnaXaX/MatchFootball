@@ -40,13 +40,14 @@
     <div class="columns is-multiline">
         <%  int i =0;
             for (Joueur j : joueurs) {
-                
+                if(i==10)
+                    i=0;
         %> 
-        <div class="column is-one-quarter-desktop ">
+        <div class="column is-one-quarter-desktop is-one-third-tablet is-half-mobile ">
             <div class="card">
 <div class="card-image">
     <figure class="image is-4by3">
-      <img src="https://randomuser.me/api/portraits/men/<%=i%>.jpg" alt="Placeholder image">
+      <img src="https://randomuser.me/api/portraits/lego/<%=i%>.jpg" alt="Placeholder image">
     </figure>
   </div>
                 `<div class="card">

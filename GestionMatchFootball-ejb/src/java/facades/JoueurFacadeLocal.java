@@ -33,7 +33,9 @@ public interface JoueurFacadeLocal {
     
     List listJoueurs();    
 
-    void creerJoueur(String nom, String prenom, Equipe equipe);
-
     List listJoueursEquipe(Equipe equipe);
+
+    void affecterEquipe(Joueur j, Equipe e);
+
+    void creerJoueur(String nom, String prenom);
 }

@@ -1,5 +1,5 @@
-<%--@page import="entities.Equipe"--%>
-<%--@page import="java.util.List"--%>
+<%@page import="entities.Equipe"%>
+<%@page import="java.util.List"%>
 <!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette interface-->
 <%
     RequestDispatcher rd = request.getRequestDispatcher("../Menu.jsp");
@@ -7,7 +7,7 @@
         rd.forward(request, response);
     }
 %>
-<%-- <jsp:useBean id="listEquipes" scope="request" class="java.util.List"></jsp:useBean> --%>
+<jsp:useBean id="listEquipes" scope="request" class="java.util.List"></jsp:useBean>
 <%@ include file="../header.jsp"%>
 
 <section class="section" style="margin-top:2rem">

@@ -27,6 +27,19 @@ public class Entraineur implements Serializable {
     public List<Equipe> getHistorique() {
         return historique;
     }
+    
+        /*Pour garder la synchronisation/relation des listes et BD*/
+    public void addEquipeHistorique(Equipe e) {
+        historique.add(e);
+        e.setEntraineur(this);
+    }
+    
+    public void removeEquipeHistorique(Equipe e) {
+        historique.remove(e);
+        e.setEntraineur(null);
+    }
+        /*Pour garder la synchronisation/relation des listes et BD*/
+
    
     @Column(nullable=false,unique=true)
     private String login;

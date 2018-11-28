@@ -7,7 +7,6 @@ package facades;
 
 import entities.Entraineur;
 import entities.Equipe;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -37,8 +36,10 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
     public void creerEquipe(String nom, Entraineur entraineur) {
         Equipe e = new Equipe();
         e.setNom(nom);
-        e.setEntraineur(entraineur);
+        e.setPoints(0);
+        entraineur.addEquipeHistorique(e);
         em.persist(e);
+        em.merge(entraineur);
     }    
 
     @Override

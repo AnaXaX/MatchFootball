@@ -36,8 +36,8 @@ public class MatchFacade extends AbstractFacade<Match> implements MatchFacadeLoc
     public void creerMatch(Date date, Equipe equipe1, Equipe equipe2, Arbitre arbitre) {
         Match m = new Match();
         m.setDate(date);
-        m.setEquipeUne(equipe1);
-        m.setEquipeDeux(equipe2);
+        m.setEquipeReceveuse(equipe1);
+        m.setEquipeInvitee(equipe2);
         m.setArbitre(arbitre);
         em.persist(m);
     }

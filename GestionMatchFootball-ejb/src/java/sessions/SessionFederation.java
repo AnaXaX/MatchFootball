@@ -70,9 +70,9 @@ public class SessionFederation implements SessionFederationLocal {
     }
 
     @Override
-    public void creerJoueur(String nom, String prenom, Equipe equipe) {
-        joueurFacade.creerJoueur(nom, prenom, equipe) ;
-    }
+    public void creerJoueur(String nom, String prenom) {
+        joueurFacade.creerJoueur(nom, prenom);
+    }    
 
     @Override
     public Entraineur rechercheEntraineur(long id) {
@@ -93,5 +93,9 @@ public class SessionFederation implements SessionFederationLocal {
     public Equipe rechercheEquipe(long id) {
         return equipeFacade.rechercheEquipe(id);
     }
-   
+
+    @Override
+    public List listJoueurs() {
+        return joueurFacade.listJoueurs();
+    }   
 }

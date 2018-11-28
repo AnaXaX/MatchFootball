@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -21,6 +23,36 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Joueur implements Serializable {
+
+    @OneToMany
+    private List<Equipe> historiqueEquipes;
+
+    public List<Equipe> getHistoriqueEquipes() {
+        return historiqueEquipes;
+    }
+    
+    /*Pour garder la synchronisation/relation des listes et BD*/
+    public void addFaute(Faute f) {
+        fautes.add(f);
+        f.setJoueur(this);
+    }
+    
+    public void removeFaute(Faute f) {
+        fautes.remove(f);
+        f.setJoueur(null);
+    }
+    /*Pour garder la synchronisation/relation des listes et BD*/
+    
+    @OneToMany(mappedBy = "joueur")
+    private List<Faute> fautes;
+
+    public List<Faute> getFautes() {
+        return fautes;
+    }
+
+    public void setFautes(List<Faute> fautes) {
+        this.fautes = fautes;
+    }
     
     @ManyToOne
     private Equipe equipe;
