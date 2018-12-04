@@ -11,7 +11,6 @@ import facades.EntraineurFacadeLocal;
 import entities.Equipe;
 import facades.EquipeFacadeLocal;
 import entities.Helpers;
-import entities.Joueur;
 import facades.JoueurFacadeLocal;
 import java.io.UnsupportedEncodingException;
 import java.util.List;

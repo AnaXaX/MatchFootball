@@ -31,5 +31,7 @@ public interface ArbitreFacadeLocal {
     int count();
 
     void creerArbitre(String nom, String prenom, String login, String mdp);
+
+    Arbitre authentification(String login, String mdp);
     
 }

@@ -5,9 +5,8 @@
  */
 package entities;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import javax.xml.bind.DatatypeConverter;
-import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.*;
 import javax.xml.bind.DatatypeConverter;

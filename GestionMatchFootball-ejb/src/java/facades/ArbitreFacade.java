@@ -9,6 +9,12 @@ import entities.Arbitre;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import entities.Helpers;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,8 +41,31 @@ public class ArbitreFacade extends AbstractFacade<Arbitre> implements ArbitreFac
         a.setNom(nom);
         a.setPrenom(prenom);
         a.setLogin(login);
-        a.setMdp(mdp);
+        try {
+            a.setMdp(Helpers.sha1(mdp));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ArbitreFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
         em.persist(a);
     }
-   
+
+    @Override
+    public Arbitre authentification(String login, String mdp) {
+        Arbitre a = null;
+        Query requete = getEntityManager().createQuery("select a from Arbitre as a where a.login=:login and a.mdp=:mdp");
+        requete.setParameter("login", login);
+        try {
+            requete.setParameter("mdp", Helpers.sha1(mdp));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ArbitreFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        a = (Arbitre) requete.getSingleResult();
+        return a;
+        /*  List<Arbitre> list =requete.getResultList();
+        for(Arbitre aa : list){
+            a = aa;
+        }
+        */
+    }
+
 }
