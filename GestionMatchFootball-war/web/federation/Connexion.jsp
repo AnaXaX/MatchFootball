@@ -1,6 +1,6 @@
 <%@ include file="../header.jsp"%>
         <section class="section" style="margin-top:2rem">
-            <form method="get" action="${pageContext.request.contextPath}/AccesFederation">
+            <form method="post" action="${pageContext.request.contextPath}/AccesFederation">
             <div class="field">
                 <p class="control has-icons-left">
                     <input name="mdpFederation" class="input is-rounded has-text-info is-fullwidth is-large has-text-centered" type="password" placeholder="Mot de Passe Fédération">         

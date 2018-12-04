@@ -1,3 +1,4 @@
+<%@page import="entities.Entraineur"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="has-navbar-fixed-top">
@@ -36,7 +37,7 @@
                         out.println("<a href='"+request.getContextPath()+"/federation/Menu.jsp' class='navbar-item'>Fédération</a>");
                 %>     
                 <%
-                    String statutConnexionEntraineur = (String) session.getAttribute("sessionEntraineur");
+                    Entraineur statutConnexionEntraineur = (Entraineur) session.getAttribute("sessionEntraineur");
                     if(statutConnexionEntraineur==null)
                         out.println("<a href='"+request.getContextPath()+"/entraineur/Connexion.jsp' class='navbar-item'>Entraineur</a>");
                     else
