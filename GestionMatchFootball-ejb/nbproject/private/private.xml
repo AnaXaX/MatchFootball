@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/6170232/Documents/NetBeansProjects/MatchFootball/GestionMatchFootball-ejb/src/java/facades/FauteFacade.java</file>
+            <file>file:/C:/Users/6170232/Documents/NetBeansProjects/MatchFootball/GestionMatchFootball-ejb/src/java/facades/EquipeFacade.java</file>
+            <file>file:/C:/Users/6170232/Documents/NetBeansProjects/MatchFootball/GestionMatchFootball-ejb/src/java/sessions/SessionFederation.java</file>
+            <file>file:/C:/Users/6170232/Documents/NetBeansProjects/MatchFootball/GestionMatchFootball-ejb/src/java/facades/ArbitreFacade.java</file>
+        </group>
     </open-files>
 </project-private>
