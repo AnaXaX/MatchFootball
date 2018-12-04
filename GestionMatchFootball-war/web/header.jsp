@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animated.css">
         <link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+        <link rel="icon" href="favicon.ico" type="image/ico">
         <title>Menu Gestion de Matchs de  FootBall</title>
     </head>
 
