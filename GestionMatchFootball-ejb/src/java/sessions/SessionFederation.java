@@ -43,7 +43,7 @@ public class SessionFederation implements SessionFederationLocal {
         boolean acces = false;
         if(mdp!=null){
             try {
-                if(Helpers.sha1(mdp).equalsIgnoreCase("5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8"))
+                if(Helpers.sha1(mdp).equals("5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")) //Mot de Passe : password
                     acces=true;
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(SessionFederation.class.getName()).log(Level.SEVERE, null, ex);

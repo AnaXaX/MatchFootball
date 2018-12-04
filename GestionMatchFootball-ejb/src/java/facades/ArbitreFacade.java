@@ -59,8 +59,10 @@ public class ArbitreFacade extends AbstractFacade<Arbitre> implements ArbitreFac
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ArbitreFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        a = (Arbitre) requete.getSingleResult();
+        if(!requete.getResultList().isEmpty())
+            a = (Arbitre) requete.getSingleResult();
         return a;
+        
         /*  List<Arbitre> list =requete.getResultList();
         for(Arbitre aa : list){
             a = aa;
