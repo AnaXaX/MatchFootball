@@ -6,6 +6,7 @@
 package sessions;
 
 import entities.Entraineur;
+import entities.Equipe;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +17,7 @@ import javax.ejb.Local;
 public interface SessionEntraineurLocal {
 
     Entraineur authentification(String login, String mdp);
+
+    Equipe rechercheEquipeParEntraineur(Entraineur entraineur);
     
 }

@@ -6,7 +6,9 @@
 package sessions;
 
 import entities.Entraineur;
+import entities.Equipe;
 import facades.EntraineurFacadeLocal;
+import facades.EquipeFacadeLocal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -18,12 +20,23 @@ import javax.ejb.Stateless;
 public class SessionEntraineur implements SessionEntraineurLocal {
 
     @EJB
+    private EquipeFacadeLocal equipeFacade;
+
+    @EJB
     private EntraineurFacadeLocal entraineurFacade;
+    
 
     @Override
     public Entraineur authentification(String login, String mdp) {
         return entraineurFacade.authentification(login, mdp);
     }
+
+    @Override
+    public Equipe rechercheEquipeParEntraineur(Entraineur entraineur) {
+        return equipeFacade.rechercheEquipeParEntraineur(entraineur) ;
+    }
+    
+    
     
     
 

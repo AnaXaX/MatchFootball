@@ -80,7 +80,11 @@ public class EntraineurFacade extends AbstractFacade<Entraineur> implements Entr
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ArbitreFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        e = (Entraineur) requete.getSingleResult();
-        return e;    
+        if (!requete.getResultList().isEmpty()){
+            e = (Entraineur) requete.getSingleResult();
+            return e;
+        } else {
+            return null;
+        }   
     }
 }

@@ -40,5 +40,7 @@ public interface EquipeFacadeLocal {
     Equipe rechercheEquipe(long id);
 
    // void ajouterJoueur(Equipe equipe, Joueur joueur);
+
+    Equipe rechercheEquipeParEntraineur(Entraineur entraineur);
     
 }
