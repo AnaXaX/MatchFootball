@@ -1,0 +1,11 @@
+{
+  "name": "MatchFootball",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://AnaXaX@github.com/AnaXaX/MatchFootball.git",
+  "author": "AnaXaX <anas.boudyach@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bulma-extensions": "^4.0.0"
+  }
+}

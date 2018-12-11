@@ -38,4 +38,8 @@ public interface JoueurFacadeLocal {
     void affecterEquipe(Joueur j, Equipe e);
 
     void creerJoueur(String nom, String prenom);
+
+    Joueur rechercheJoueur(long id);
+
+    List listJoueurSansEquipe();
 }

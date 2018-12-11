@@ -9,6 +9,8 @@ import entities.Entraineur;
 import entities.Equipe;
 import facades.EntraineurFacadeLocal;
 import facades.EquipeFacadeLocal;
+import facades.JoueurFacadeLocal;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -18,6 +20,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class SessionEntraineur implements SessionEntraineurLocal {
+
+    @EJB
+    private JoueurFacadeLocal joueurFacade;
 
     @EJB
     private EquipeFacadeLocal equipeFacade;
@@ -35,10 +40,17 @@ public class SessionEntraineur implements SessionEntraineurLocal {
     public Equipe rechercheEquipeParEntraineur(Entraineur entraineur) {
         return equipeFacade.rechercheEquipeParEntraineur(entraineur) ;
     }
-    
-    
-    
-    
 
+    @Override
+    public List rechercheJoueurs() {
+        return joueurFacade.listJoueurSansEquipe();
+    }
+
+
+
+    @Override
+    public void affecterJoueur(long id, Equipe e) {
+        joueurFacade.affecterEquipe(joueurFacade.rechercheJoueur(id), e);
+    }  
 
 }

@@ -81,8 +81,7 @@ public class EntraineurFacade extends AbstractFacade<Entraineur> implements Entr
             Logger.getLogger(ArbitreFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (!requete.getResultList().isEmpty()){
-            e = (Entraineur) requete.getSingleResult();
-            return e;
+            return (Entraineur) requete.getSingleResult();
         } else {
             return null;
         }   

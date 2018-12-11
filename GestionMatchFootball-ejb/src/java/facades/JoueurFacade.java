@@ -31,7 +31,7 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
     public JoueurFacade() {
         super(Joueur.class);
     }
-    
+
     @Override
     public void creerJoueur(String nom, String prenom) {
         Joueur j = new Joueur();
@@ -39,8 +39,7 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         j.setPrenom(prenom);
         em.persist(j);
     }
-    
-    
+
     @Override
     public void affecterEquipe(Joueur j, Equipe e) {
         j.getHistoriqueEquipes().add(e);
@@ -48,20 +47,36 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         em.merge(j);
         em.merge(e);
     }
-    
+
     @Override
     public List listJoueurs() {
-        Query requete = getEntityManager().createQuery("select j from Joueur as j"); 
-        return requete.getResultList();  
-    }  
+        Query requete = getEntityManager().createQuery("select j from Joueur as j");
+        return requete.getResultList();
+    }
 
     @Override
     public List listJoueursEquipe(Equipe equipe) {
-       Query requete = getEntityManager().createQuery("select j from Joueur as j where j.equipe=:equipe"); 
+        Query requete = getEntityManager().createQuery("select j from Joueur as j where j.equipe=:equipe");
         requete.setParameter("equipe", equipe);
-        return requete.getResultList();  
-    }    
+        return requete.getResultList();
+    }
 
-   
+    @Override
+    public Joueur rechercheJoueur(long id) {
+        Query requete = getEntityManager().createQuery("select j from Joueur as j where j.id=:id");
+        requete.setParameter("id", id);
+        if (!requete.getResultList().isEmpty()) {
+            return (Joueur) requete.getSingleResult();
+        } else {
+            return null;
+        }
+    }
 
+    @Override
+    public List listJoueurSansEquipe() {
+        Query requete = getEntityManager().createQuery("select j from Joueur as j where j.equipe is null");
+        return requete.getResultList();    
+    }
+
+    
 }

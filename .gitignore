@@ -1,0 +1,7 @@
+/GestionMatchFootball-ejb/build/
+/GestionMatchFootball-war/build/
+/GestionMatchFootball-war/dist/
+/GestionMatchFootball-ejb/dist/
+/GestionMatchFootball-ejb/nbproject/private/
+/GestionMatchFootball-war/nbproject/private/
+node_modules

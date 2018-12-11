@@ -7,6 +7,7 @@ package sessions;
 
 import entities.Entraineur;
 import entities.Equipe;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +20,9 @@ public interface SessionEntraineurLocal {
     Entraineur authentification(String login, String mdp);
 
     Equipe rechercheEquipeParEntraineur(Entraineur entraineur);
+
+    List rechercheJoueurs();
+
+    void affecterJoueur(long id, Equipe e);
     
 }

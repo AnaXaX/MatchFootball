@@ -24,9 +24,9 @@ public class AccesFederation extends HttpServlet {
     @EJB
     private SessionFederationLocal sessionFederation;
 
-    public static final String ATT_SESSION_FEDERATION = "sessionFederation";
+    public final String ATT_SESSION_FEDERATION = "sessionFederation";
     
-    public static final String ERREUR_CHAMP = "Un des champs n'est pas rempli";
+    public final String ERREUR_CHAMP = "Un des champs n'est pas rempli";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

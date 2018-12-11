@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static servlet.AccesFederation.ATT_SESSION_FEDERATION;
 import sessions.SessionEntraineurLocal;
 
 /**
@@ -61,6 +60,21 @@ public class AccesEntraineur extends HttpServlet {
                 session.setAttribute(ATT_SESSION_ENTRAINEUR, null);//Attribuer le Token
                 jspClient = "/entraineur/Connexion.jsp";
         }
+        /*End connexion & deconnexion*/
+        if (act.equals("afficherAffecterJoueur")) {
+            request.setAttribute("listJoueurs", sessionEntraineur.rechercheJoueurs());
+            jspClient = "/entraineur/AffecterJoueur.jsp";
+            
+        }
+        
+        if (act.equals("affecterJoueurs")) {
+            String[] joueursId = request.getParameterValues("idJoueurs");
+            for(String j : joueursId)
+                 sessionEntraineur.affecterJoueur(Long.parseLong(j),(Equipe) session.getAttribute("equipe"));
+            jspClient = "/entraineur/Menu.jsp";
+        }
+
+        
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
