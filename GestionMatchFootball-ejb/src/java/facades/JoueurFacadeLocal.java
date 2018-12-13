@@ -42,4 +42,6 @@ public interface JoueurFacadeLocal {
     Joueur rechercheJoueur(long id);
 
     List listJoueurSansEquipe();
+
+    void transferJoueur(Joueur joueur, Equipe ancienneEquipe, Equipe nouvelleEquipe);
 }

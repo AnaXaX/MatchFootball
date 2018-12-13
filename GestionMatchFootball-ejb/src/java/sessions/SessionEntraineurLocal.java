@@ -21,8 +21,12 @@ public interface SessionEntraineurLocal {
 
     Equipe rechercheEquipeParEntraineur(Entraineur entraineur);
 
-    List rechercheJoueurs();
+    List rechercheJoueursSansEquipe();
 
     void affecterJoueur(long id, Equipe e);
+
+    List listEquipesTransfert(Equipe equipeActuel);
+
+    void transfererJoueur(long idJoueur, Equipe ancienneEquipe, long nouvelleEquipe);
     
 }

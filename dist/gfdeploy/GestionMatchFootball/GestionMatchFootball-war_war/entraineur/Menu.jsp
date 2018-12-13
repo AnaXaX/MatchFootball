@@ -51,7 +51,7 @@
         </div>
     </a>  
 
-    <a href="${pageContext.request.contextPath}/AccesEntraineur?action=transfererJoueur">
+    <a href="${pageContext.request.contextPath}/AccesEntraineur?action=afficherTransfererJoueur">
         <div class="box">
             <article class="media">
                 <div class="media-left">

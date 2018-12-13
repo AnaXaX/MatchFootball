@@ -1,22 +1,20 @@
+<%@page import="entities.Equipe"%>
 <%@page import="entities.Joueur"%>
 <%@page import="java.util.Collection"%>
 
 <jsp:useBean id="listJoueurs" scope="request" class="java.util.Collection"></jsp:useBean>
+<jsp:useBean id="listEquipes" scope="request" class="java.util.Collection"></jsp:useBean> 
 <%@ include file="../header.jsp"%>
 
 <section class="section" style="margin-top:2rem">
 
-
     <%
         Collection<Joueur> joueurs = listJoueurs;
-        System.out.println(joueurs);
+        Collection<Equipe> equipes = listEquipes;
+       // System.out.println(joueurs);
 
     %>         
-
-
-
-
-
+    
     <h1 class="title">Liste des joueurs</h1>
     
     <!-- Table checking -->
@@ -38,6 +36,24 @@
     </table>     
     
 <form method="post" action="${pageContext.request.contextPath}/AccesEntraineur">
+        <div class="field">
+          <div class="control has-icons-left">
+            <div class="select is-large is-fullwidth has-text-centered">
+              <select name="equipeID" class="has-text-centered is-centered" >
+                    <option value="" disabled selected>Choisir l'équipe à transférer</option>
+                <%
+                 
+                    for(Equipe e : equipes){
+                %>
+                <option  value="<%=e.getId()%>"><%=e.getNom()%></option>
+                <%}%>
+              </select>   
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user-secret"></i>
+                </span>
+            </div>
+          </div>
+        </div>
     <div class="columns is-multiline">
         <%  int i = 0;
             for (Joueur j : joueurs) {
@@ -67,11 +83,9 @@
         </div>
         <%i++;
             }%>
-      
-
     </div>
-              <input value="affecterJoueurs" name="action" type="hidden">
-        <input style="margin-top: 1rem" class="button is-large is-success" value="Affecter les joueurs" type="submit">
+              <input value="transfererJoueurs" name="action" type="hidden">
+        <input style="margin-top: 1rem" class="button is-large is-success" value="Transférer les joueurs" type="submit">
     </form>
 
 

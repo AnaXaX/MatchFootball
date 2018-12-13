@@ -43,10 +43,24 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
     @Override
     public void affecterEquipe(Joueur j, Equipe e) {
         j.getHistoriqueEquipes().add(e);
+        //  Bidirectionnel il suffit de l'ajouter dans la liste d'effectif  pour que l'équipe du joueur change : j.setEquipe(e);
         e.addJoueurEffectif(j);
         em.merge(j);
         em.merge(e);
     }
+   
+    
+    @Override
+    public void transferJoueur(Joueur joueur, Equipe ancienneEquipe, Equipe nouvelleEquipe) {
+        ancienneEquipe.removeJoueurEffectif(joueur);
+        nouvelleEquipe.addJoueurEffectif(joueur);
+        if(!joueur.getHistoriqueEquipes().contains(nouvelleEquipe))
+            joueur.getHistoriqueEquipes().add(nouvelleEquipe);
+        em.merge(joueur);
+        em.merge(ancienneEquipe);
+        em.merge(nouvelleEquipe);
+    }
+
 
     @Override
     public List listJoueurs() {
@@ -77,6 +91,9 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         Query requete = getEntityManager().createQuery("select j from Joueur as j where j.equipe is null");
         return requete.getResultList();    
     }
+
+
+ 
 
     
 }

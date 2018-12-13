@@ -4,10 +4,6 @@
 <jsp:useBean id="listJoueurs" scope="request" class="java.util.Collection"></jsp:useBean>
 <%@ include file="../header.jsp"%>
 
-
-
-<%            String nomEquipe = (String) request.getAttribute("nomEquipe");
-%>
 <section class="section" style="margin-top:2rem">
 
 
@@ -22,7 +18,8 @@
 
 
     <h1 class="title">Liste des joueurs</h1>
-    <%--
+    
+    <!-- Table checking -->
     <table class="table is-striped is-hoverable is-fullwidth">
         <tr>
             <th>ID</th>
@@ -39,7 +36,7 @@
         </tr>
         <%}%>
     </table>     
-    --%>
+    
 <form method="post" action="${pageContext.request.contextPath}/AccesEntraineur">
     <div class="columns is-multiline">
         <%  int i = 0;

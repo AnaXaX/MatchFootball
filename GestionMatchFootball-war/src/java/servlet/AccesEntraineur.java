@@ -49,7 +49,7 @@ public class AccesEntraineur extends HttpServlet {
                 session.setAttribute("equipe", eq);
                 jspClient = "/entraineur/Menu.jsp";
                 session.setAttribute(ATT_SESSION_ENTRAINEUR, e);//Attribuer le Token
-                
+
             } else {
                 jspClient = "/entraineur/Connexion.jsp";
                 request.setAttribute("msgError", "Wrong password");
@@ -57,25 +57,38 @@ public class AccesEntraineur extends HttpServlet {
         }
 
         if (act.equals("deconnexion")) {
-                session.setAttribute(ATT_SESSION_ENTRAINEUR, null);//Attribuer le Token
-                jspClient = "/entraineur/Connexion.jsp";
+            session.setAttribute(ATT_SESSION_ENTRAINEUR, null);//Enlever le Token
+            jspClient = "/entraineur/Connexion.jsp";
         }
         /*End connexion & deconnexion*/
         if (act.equals("afficherAffecterJoueur")) {
-            request.setAttribute("listJoueurs", sessionEntraineur.rechercheJoueurs());
+            request.setAttribute("listJoueurs", sessionEntraineur.rechercheJoueursSansEquipe());
             jspClient = "/entraineur/AffecterJoueur.jsp";
-            
+
         }
-        
+
         if (act.equals("affecterJoueurs")) {
             String[] joueursId = request.getParameterValues("idJoueurs");
-            for(String j : joueursId)
-                 sessionEntraineur.affecterJoueur(Long.parseLong(j),(Equipe) session.getAttribute("equipe"));
+            for (String j : joueursId) 
+                sessionEntraineur.affecterJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"));          
             jspClient = "/entraineur/Menu.jsp";
         }
 
-        
+        if (act.equals("afficherTransfererJoueur")) {
+            request.setAttribute("listEquipes", sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));
+            request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
+            System.out.println(sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));        
+            jspClient = "/entraineur/TransfererJoueurs.jsp";
+        }
 
+        if (act.equals("transfererJoueurs")) {
+            String[] joueursId = request.getParameterValues("idJoueurs");
+            for (String j : joueursId) 
+                sessionEntraineur.transfererJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"), Long.parseLong(request.getParameter("equipeID")));  
+        jspClient = "/entraineur/Menu.jsp";
+
+            
+        }
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
 

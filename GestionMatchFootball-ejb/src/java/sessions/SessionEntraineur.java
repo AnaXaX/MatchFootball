@@ -42,15 +42,24 @@ public class SessionEntraineur implements SessionEntraineurLocal {
     }
 
     @Override
-    public List rechercheJoueurs() {
+    public List rechercheJoueursSansEquipe() {
         return joueurFacade.listJoueurSansEquipe();
     }
-
-
 
     @Override
     public void affecterJoueur(long id, Equipe e) {
         joueurFacade.affecterEquipe(joueurFacade.rechercheJoueur(id), e);
     }  
+
+    @Override
+    public List listEquipesTransfert(Equipe equipeActuel) {
+        return equipeFacade.listEquipesTransfert(equipeActuel);
+    }
+
+    @Override
+    public void transfererJoueur(long idJoueur, Equipe ancienneEquipe, long nouvelleEquipe) {
+        joueurFacade.transferJoueur(joueurFacade.rechercheJoueur(idJoueur), ancienneEquipe, equipeFacade.rechercheEquipe(nouvelleEquipe));
+    }
+      
 
 }

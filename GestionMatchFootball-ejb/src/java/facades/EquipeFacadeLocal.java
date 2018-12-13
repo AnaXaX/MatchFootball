@@ -42,5 +42,7 @@ public interface EquipeFacadeLocal {
    // void ajouterJoueur(Equipe equipe, Joueur joueur);
 
     Equipe rechercheEquipeParEntraineur(Entraineur entraineur);
+
+    List listEquipesTransfert(Equipe equipeActuelle);
     
 }

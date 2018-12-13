@@ -84,7 +84,13 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
             return null;
         }
     }
-    
+
+    @Override
+    public List listEquipesTransfert(Equipe equipeActuelle) {
+        Query requete = getEntityManager().createQuery("select e from Equipe as e where e!=:equipe");
+        requete.setParameter("equipe", equipeActuelle);
+        return requete.getResultList();
+    }    
     
     
 }
