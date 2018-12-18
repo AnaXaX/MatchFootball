@@ -39,19 +39,19 @@ public class Arbitre implements Serializable {
     }
     
     @OneToMany(mappedBy = "arbitre")
-    private List<Match> historiqueMatchs;
+    private List<MatchFoot> historiqueMatchs;
 
-    public List<Match> getHistoriqueMatchs() {
+    public List<MatchFoot> getHistoriqueMatchs() {
         return historiqueMatchs;
     }
     
     /*Pour garder la synchronisation/relation des listes et BD*/
-    public void addHistoriqueMatch(Match m) {
+    public void addHistoriqueMatch(MatchFoot m) {
         historiqueMatchs.add(m);
         m.setArbitre(this);
     }
     
-    public void removeHistoriqueMatch(Match m) {
+    public void removeHistoriqueMatch(MatchFoot m) {
         historiqueMatchs.remove(m);
         m.setArbitre(null);
     }

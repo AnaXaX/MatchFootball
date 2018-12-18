@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 /**
  *
  * @author Grind-Machine
@@ -19,32 +18,32 @@ import javax.persistence.OneToMany;
 @Entity
 public class Equipe implements Serializable {
 
-    public List<Match> getHistoriqueMatchs() {
-        List<Match> historiqueMatchs = new ArrayList<>();
+    public List<MatchFoot> getHistoriqueMatchs() {
+        List<MatchFoot> historiqueMatchs = new ArrayList<>();
         historiqueMatchs.addAll(historiqueMatchsRecus);
         historiqueMatchs.addAll(historiqueMatchsInvites);
         return historiqueMatchs;
     }
 
     @OneToMany(mappedBy = "equipeInvitee")
-    private List<Match> historiqueMatchsInvites;
+    private List<MatchFoot> historiqueMatchsInvites;
 
-    public List<Match> getHistoriqueMatchsRecus() {
+    public List<MatchFoot> getHistoriqueMatchsRecus() {
         return historiqueMatchsRecus;
     }
 
-    public void setHistoriqueMatchsRecus(List<Match> historiqueMatchsRecus) {
+    public void setHistoriqueMatchsRecus(List<MatchFoot> historiqueMatchsRecus) {
         this.historiqueMatchsRecus = historiqueMatchsRecus;
     }
 
     @OneToMany(mappedBy = "equipeReceveuse")
-    private List<Match> historiqueMatchsRecus;
+    private List<MatchFoot> historiqueMatchsRecus;
 
-    public List<Match> getHistoriqueMatchsInvites() {
+    public List<MatchFoot> getHistoriqueMatchsInvites() {
         return historiqueMatchsInvites;
     }
 
-    public void setHistoriqueMatchsInvites(List<Match> historiqueMatchsInvites) {
+    public void setHistoriqueMatchsInvites(List<MatchFoot> historiqueMatchsInvites) {
         this.historiqueMatchsInvites = historiqueMatchsInvites;
     }
 
@@ -81,22 +80,22 @@ public class Equipe implements Serializable {
         joueur.setEquipe(null);
     }
     
-    public void addHistoriqueMatchRecus(Match m) {
+    public void addHistoriqueMatchRecus(MatchFoot m) {
         historiqueMatchsRecus.add(m);
         m.setEquipeReceveuse(this);
     }
     
-    public void removeHistoriqueMatchRecus(Match m) {
+    public void removeHistoriqueMatchRecus(MatchFoot m) {
         historiqueMatchsRecus.remove(m);
         m.setEquipeReceveuse(null);
     }
     
-    public void addHistoriqueMatchInvites(Match m) {
+    public void addHistoriqueMatchInvites(MatchFoot m) {
         historiqueMatchsInvites.add(m);
         m.setEquipeInvitee(this);
     }
     
-    public void removeHistoriqueMatchInvites(Match m) {
+    public void removeHistoriqueMatchInvites(MatchFoot m) {
         historiqueMatchsInvites.remove(m);
         m.setEquipeInvitee(null);
     }
@@ -151,10 +150,7 @@ public class Equipe implements Serializable {
             return false;
         }
         Equipe other = (Equipe) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

@@ -7,7 +7,7 @@ package facades;
 
 import entities.Arbitre;
 import entities.Equipe;
-import entities.Match;
+import entities.MatchFoot;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  * @author Grind-Machine
  */
 @Stateless
-public class MatchFacade extends AbstractFacade<Match> implements MatchFacadeLocal {
+public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacadeLocal {
 
     @PersistenceContext(unitName = "GestionMatchFootball-ejbPU")
     private EntityManager em;
@@ -29,12 +29,12 @@ public class MatchFacade extends AbstractFacade<Match> implements MatchFacadeLoc
     }
 
     public MatchFacade() {
-        super(Match.class);
+        super(MatchFoot.class);
     }
 
     @Override
     public void creerMatch(Date date, Equipe equipe1, Equipe equipe2, Arbitre arbitre) {
-        Match m = new Match();
+        MatchFoot m = new MatchFoot();
         m.setDate(date);
         m.setEquipeReceveuse(equipe1);
         m.setEquipeInvitee(equipe2);

@@ -42,29 +42,21 @@
         <%  int i = 0;
             for (Joueur j : joueurs) {
         %> 
-        <div class="column is-one-quarter-desktop is-one-third-tablet">
-            <div class="card">
+        
+            
                 <div class="card-image">
                     <figure class="image is-4by3">
                         <img src="https://api.adorable.io/avatars/285/<%=j.getId()%>.jpg" alt="Placeholder image">
                     </figure>
                 </div>
-                <div class="card">
                     <div class="card-content">
                         <p class="title">
                             <%=j.getId()%>&nbsp;<%=j.getNom()%>&nbsp;<%=j.getPrenom()%>
-                        </p>
-                        <p class="subtitle"></p>
+                            <input class="is-checkradio" id="checkbox<%=i%>" type="checkbox" name="idJoueurs" value="<%=j.getId()%>">
+                            <label for="checkbox<%=i%>">Affecter ce Joueur</label>
+                        </p>                                             
                     </div>
-                </div>
-                <footer class="card- has-text-centered">
-                    <div class="field">
-                        <input class="is-checkradio" id="checkbox<%=i%>" type="checkbox" name="idJoueurs" value="<%=j.getId()%>">
-                        <label for="checkbox<%=i%>">Affecter ce Joueur</label>
-                    </div>
-                </footer>     
-            </div>
-        </div>
+                               
         <%i++;
             }%>
       

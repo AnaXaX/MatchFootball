@@ -23,7 +23,7 @@ public class Entraineur implements Serializable {
         return historique;
     }
     
-        /*Pour garder la synchronisation/relation des listes et BD*/
+    /*Pour garder la synchronisation/relation des listes et BD*/
     public void addEquipeHistorique(Equipe e) {
         historique.add(e);
         e.setEntraineur(this);
@@ -33,8 +33,7 @@ public class Entraineur implements Serializable {
         historique.remove(e);
         e.setEntraineur(null);
     }
-        /*Pour garder la synchronisation/relation des listes et BD*/
-
+    /*Pour garder la synchronisation/relation des listes et BD*/
    
     @Column(nullable=false,unique=true)
     private String login;
@@ -57,7 +56,6 @@ public class Entraineur implements Serializable {
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
-
     
     @Column(unique=false,nullable=false)
     private String prenom;
@@ -69,7 +67,6 @@ public class Entraineur implements Serializable {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
     
     @Column(unique=false,nullable=false)
     private String nom;
@@ -81,7 +78,6 @@ public class Entraineur implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,10 +106,7 @@ public class Entraineur implements Serializable {
             return false;
         }
         Entraineur other = (Entraineur) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

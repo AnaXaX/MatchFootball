@@ -7,7 +7,7 @@ package facades;
 
 import entities.Faute;
 import entities.Joueur;
-import entities.Match;
+import entities.MatchFoot;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,7 +32,7 @@ public class FauteFacade extends AbstractFacade<Faute> implements FauteFacadeLoc
     }
 
     @Override
-    public void creerFaute(Match match, Joueur joueur, boolean cartonJaune, boolean cartonRouge) {
+    public void creerFaute(MatchFoot match, Joueur joueur, boolean cartonJaune, boolean cartonRouge) {
         Faute f = new Faute();
         f.setJoueur(joueur);
         f.setMatch(match);

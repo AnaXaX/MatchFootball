@@ -7,7 +7,7 @@ package facades;
 
 import entities.Faute;
 import entities.Joueur;
-import entities.Match;
+import entities.MatchFoot;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -32,6 +32,6 @@ public interface FauteFacadeLocal {
 
     int count();
 
-    void creerFaute(Match match, Joueur joueur, boolean cartonJaune, boolean cartonRouge);
+    void creerFaute(MatchFoot match, Joueur joueur, boolean cartonJaune, boolean cartonRouge);
     
 }

@@ -63,13 +63,13 @@ public class Faute implements Serializable {
     }
        
     @ManyToOne
-    private Match match;
+    private MatchFoot match;
 
-    public Match getMatch() {
+    public MatchFoot getMatch() {
         return match;
     }
 
-    public void setMatch(Match match) {
+    public void setMatch(MatchFoot match) {
         this.match = match;
     }
 
@@ -100,10 +100,7 @@ public class Faute implements Serializable {
             return false;
         }
         Faute other = (Faute) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

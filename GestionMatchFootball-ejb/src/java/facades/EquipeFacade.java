@@ -35,7 +35,7 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
     @Override
     public void creerEquipe(String nom, Entraineur entraineur) {
         Equipe e = new Equipe();
-        e.setNom(nom);
+        e.setNom(nom);  
         e.setPoints(0);
         entraineur.addEquipeHistorique(e);
         em.persist(e);
@@ -77,7 +77,7 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
         Equipe e = null;
         Query requete = getEntityManager().createQuery("select e from Equipe as e where e.entraineur=:entraineur");
         requete.setParameter("entraineur", entraineur);
-        List<Equipe> list =requete.getResultList();
+        //List<Equipe> list =requete.getResultList();
         if (!requete.getResultList().isEmpty()){
             return (Equipe) requete.getSingleResult();
         } else {

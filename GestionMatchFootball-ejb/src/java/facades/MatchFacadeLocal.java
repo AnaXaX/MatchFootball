@@ -7,7 +7,7 @@ package facades;
 
 import entities.Arbitre;
 import entities.Equipe;
-import entities.Match;
+import entities.MatchFoot;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -19,17 +19,17 @@ import javax.ejb.Local;
 @Local
 public interface MatchFacadeLocal {
 
-    void create(Match match);
+    void create(MatchFoot match);
 
-    void edit(Match match);
+    void edit(MatchFoot match);
 
-    void remove(Match match);
+    void remove(MatchFoot match);
 
-    Match find(Object id);
+    MatchFoot find(Object id);
 
-    List<Match> findAll();
+    List<MatchFoot> findAll();
 
-    List<Match> findRange(int[] range);
+    List<MatchFoot> findRange(int[] range);
 
     int count();
 

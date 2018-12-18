@@ -76,7 +76,7 @@
                 <footer class="card- has-text-centered">
                     <div class="field">
                         <input class="is-checkradio" id="checkbox<%=i%>" type="checkbox" name="idJoueurs" value="<%=j.getId()%>">
-                        <label for="checkbox<%=i%>">Affecter ce Joueur</label>
+                        <label for="checkbox<%=i%>">Transférer ce Joueur</label>
                     </div>
                 </footer>     
             </div>

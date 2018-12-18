@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -23,7 +17,7 @@ import javax.persistence.Temporal;
  * @author Grind-Machine
  */
 @Entity
-public class Match implements Serializable {
+public class MatchFoot implements Serializable {
 
     @OneToMany
     private List<Joueur> effectifEquipeInvitee;
@@ -126,14 +120,14 @@ public class Match implements Serializable {
     }
 
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date;
+    private Date dateMatch;
 
     public Date getDate() {
-        return date;
+        return dateMatch;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.dateMatch = date;
     }
 
     
@@ -160,14 +154,11 @@ public class Match implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Match)) {
+        if (!(object instanceof MatchFoot)) {
             return false;
         }
-        Match other = (Match) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        MatchFoot other = (MatchFoot) object;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
