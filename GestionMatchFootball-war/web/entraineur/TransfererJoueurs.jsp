@@ -4,6 +4,9 @@
 
 <jsp:useBean id="listJoueurs" scope="request" class="java.util.Collection"></jsp:useBean>
 <jsp:useBean id="listEquipes" scope="request" class="java.util.Collection"></jsp:useBean> 
+<style>
+    <jsp:include page="../css/bulma-checkradio.min.css"/> // rajout
+</style>
 <%@ include file="../header.jsp"%>
 
 <section class="section" style="margin-top:2rem">
@@ -20,7 +23,6 @@
     <!-- Table checking -->
     <table class="table is-striped is-hoverable is-fullwidth">
         <tr>
-            <th>ID</th>
             <th>Nom</th>
             <th>Prenom</th>
         </tr>
@@ -28,7 +30,6 @@
             for (Joueur j : joueurs) {
         %>         
         <tr>
-            <td><%=j.getId()%></td>
             <td><%=j.getNom()%></td>
             <td><%=j.getPrenom()%></td>
         </tr>
@@ -68,7 +69,7 @@
                 <div class="card">
                     <div class="card-content">
                         <p class="title">
-                            <%=j.getId()%>&nbsp;<%=j.getNom()%>&nbsp;<%=j.getPrenom()%>
+                            <%=j.getNom()%>&nbsp;<%=j.getPrenom()%>
                         </p>
                         <p class="subtitle"></p>
                     </div>

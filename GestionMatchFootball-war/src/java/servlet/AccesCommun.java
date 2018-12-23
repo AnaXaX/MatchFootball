@@ -9,8 +9,6 @@ import entities.Equipe;
 import entities.Joueur;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -66,13 +64,15 @@ public class AccesCommun extends HttpServlet {
              }else{
                 Long l = Long.parseLong(request.getParameter("equipeID"));
      
-           
-                Collection<Joueur> listJoueurs =  /* sessionCommune.listJoueursEquipe(sessionCommune.rechercheEquipe(l)); */   sessionCommune.rechercheEquipe(l).getEffectif(); // Abandonné car bidirectionnel ne se met pas a jour au fur et a mesure        
+                Equipe e = sessionCommune.rechercheEquipe(l);
+               // Collection<Joueur> listJoueurs = e.getEffectif();  /* sessionCommune.listJoueursEquipe(sessionCommune.rechercheEquipe(l)); */        
                 
+                /*
                 for(Joueur j : listJoueurs)
                     System.out.println(j.getNom());
-                
-                request.setAttribute("listJoueurs", listJoueurs);
+                */
+                request.setAttribute("nomEquipe", e.getNom());
+                request.setAttribute("listJoueurs", e.getEffectif());
                 
                 jspClient = "/accueil/AfficherJoueurs.jsp";
                  

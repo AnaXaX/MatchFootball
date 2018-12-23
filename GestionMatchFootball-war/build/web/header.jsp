@@ -1,3 +1,4 @@
+<%@page import="entities.Arbitre"%>
 <%@page import="entities.Entraineur"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,15 +6,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bulma-checkradio.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/all.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bulma.min.css">
+   <%--   only imported in JSPs in need <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bulma-checkradio.min.css"> --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animated.css">
         <link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath}/css/style.css">
         <link rel="icon" href="favicon.ico" type="image/ico">
-        <title>Menu Gestion de Matchs de  FootBall</title>
+        <title>Menu Gestion de Matchs de FootBall</title>
     </head>
-
     <body class="has-text-centered">
         <nav class="navbar is-info is-fullwidth is-fixed-top">
             <div class="container">
@@ -45,7 +45,7 @@
                         out.println("<a href='"+request.getContextPath()+"/entraineur/Menu.jsp' class='navbar-item'>Entraineur</a>");
                 %>   
                 <%
-                    String statutConnexionArbitre = (String) session.getAttribute("sessionArbitre");
+                    Arbitre statutConnexionArbitre = (Arbitre) session.getAttribute("sessionArbitre");
                     if(statutConnexionEntraineur==null)
                         out.println("<a href='"+request.getContextPath()+"/arbitre/Connexion.jsp' class='navbar-item'>Arbitre</a>");
                     else

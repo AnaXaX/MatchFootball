@@ -4,22 +4,18 @@
 <jsp:useBean id="listJoueurs" scope="request" class="java.util.Collection"></jsp:useBean>
 <%@ include file="../header.jsp"%>
 
-<%            String nomEquipe = (String) request.getAttribute("nomEquipe");
-%>
+
 <section class="section" style="margin-top:2rem">
   
     
-                    <%
-                        Collection<Joueur> joueurs = listJoueurs;
-                        System.out.println(joueurs);
-                       
-                    %>         
-
-              
+                <%
+                    String nomEquipe = (String) request.getAttribute("nomEquipe");
+                    Collection<Joueur> joueurs = listJoueurs;
+                    //System.out.println(joueurs);
+                %>         
 
 
-
-    <h1 class="title">Liste des joueurs</h1>
+    <h1 class="title"><%=nomEquipe%></h1>
     <table class="table is-striped is-hoverable is-fullwidth">
         <tr>
             <th>ID</th>

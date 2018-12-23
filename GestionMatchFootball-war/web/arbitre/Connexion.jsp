@@ -1,6 +1,6 @@
 <%@ include file="../header.jsp"%>
         <section class="section" style="margin-top:2rem">
-            <form method="get" action="${pageContext.request.contextPath}/AccesArbitre">
+            <form method="post" action="${pageContext.request.contextPath}/AccesArbitre">
             <div class="field">
                 <p class="control has-icons-left">
                     <input name="loginArbitre" class="input is-rounded has-text-info is-fullwidth is-large has-text-centered" type="text" placeholder="Login Arbitre">         

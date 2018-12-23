@@ -2,6 +2,9 @@
 <%@page import="java.util.Collection"%>
 
 <jsp:useBean id="listJoueurs" scope="request" class="java.util.Collection"></jsp:useBean>
+<style>
+    <jsp:include page="../css/bulma-checkradio.min.css"/> // rajout
+</style>
 <%@ include file="../header.jsp"%>
 
 <section class="section" style="margin-top:2rem">
@@ -41,9 +44,7 @@
     <div class="columns is-multiline">
         <%  int i = 0;
             for (Joueur j : joueurs) {
-        %> 
-        
-            
+        %>      
                 <div class="card-image">
                     <figure class="image is-4by3">
                         <img src="https://api.adorable.io/avatars/285/<%=j.getId()%>.jpg" alt="Placeholder image">
@@ -55,12 +56,8 @@
                             <input class="is-checkradio" id="checkbox<%=i%>" type="checkbox" name="idJoueurs" value="<%=j.getId()%>">
                             <label for="checkbox<%=i%>">Affecter ce Joueur</label>
                         </p>                                             
-                    </div>
-                               
-        <%i++;
-            }%>
-      
-
+                    </div>                           
+        <%i++;}%>
     </div>
               <input value="affecterJoueurs" name="action" type="hidden">
         <input style="margin-top: 1rem" class="button is-large is-success" value="Affecter les joueurs" type="submit">

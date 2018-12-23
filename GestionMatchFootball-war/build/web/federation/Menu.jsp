@@ -110,7 +110,7 @@
                 </div>
             </a>
                             
-            <form method="get" action="${pageContext.request.contextPath}/AccesFederation">                     
+            <form method="post" action="${pageContext.request.contextPath}/AccesFederation">                     
                 <input value="deconnexion" name="action" type="hidden">
                 <input style="margin-top: 1rem" class="button is-large is-danger" value="Déconnexion" type="submit">
             </form> 
