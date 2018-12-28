@@ -3,6 +3,7 @@ package servlet;
 import entities.Entraineur;
 import entities.Equipe;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -25,17 +26,20 @@ public class AccesFederation extends HttpServlet {
     private SessionFederationLocal sessionFederation;
 
     public final String ATT_SESSION_FEDERATION = "sessionFederation";
-    
+
     public final String ERREUR_CHAMP = "Un des champs n'est pas rempli";
+    
+    private String jspClient;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    
         response.setContentType("text/html;charset=UTF-8");
 
-        String jspClient = null;
+        //String jspClient = null;
         HttpSession session = request.getSession();
         String act = request.getParameter("action");
- 
+
         /*Control Connexion*/
         if (act.equals("authentification")) {
             String mdpFederation = request.getParameter("mdpFederation");
@@ -53,84 +57,104 @@ public class AccesFederation extends HttpServlet {
             session.setAttribute(ATT_SESSION_FEDERATION, null); //Enlever le Token
             jspClient = "/Menu.jsp";
         }
-        
-    /*Federation Menu Possibilités*/
-        /*Création Entraineur*/
+
+        /*Federation Menu Possibilités*/
+            /*Création Entraineur*/
         if (act.equals("creerEntraineur")) {
-            if(request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty() || request.getParameter("login").trim().isEmpty() || request.getParameter("mdp").trim().isEmpty()){
+            if (request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty() || request.getParameter("login").trim().isEmpty() || request.getParameter("mdp").trim().isEmpty()) {
                 jspClient = "/federation/CreerEntraineur.jsp";
                 request.setAttribute("msgError", ERREUR_CHAMP);
-            }else{
+            } else {
                 sessionFederation.creerEntraineur(request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("login"), request.getParameter("mdp"));
                 jspClient = "/federation/Menu.jsp";
             }
         }
-        
-           /*Création Arbitre*/        
+
+            /*Création Arbitre*/
         if (act.equals("creerArbitre")) {
-            if(request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty() || request.getParameter("login").trim().isEmpty() || request.getParameter("mdp").trim().isEmpty()){
+            if (request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty() || request.getParameter("login").trim().isEmpty() || request.getParameter("mdp").trim().isEmpty()) {
                 jspClient = "/federation/CreerArbitre.jsp";
                 request.setAttribute("msgError", ERREUR_CHAMP);
-            }else{
+            } else {
                 sessionFederation.creerArbitre(request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("login"), request.getParameter("mdp"));
                 jspClient = "/federation/Menu.jsp";
             }
         }
-        
-        /*Création Joueur*/
-            /*Choix équipe pour le joueur, donc affichage des équipes*/
-        
-            /*if (act.equals("affecterJoueurEquipe")) {
-                jspClient = "/federation/AffecterJoueurEquipe.jsp";
-                List<Equipe> listEquipes = sessionFederation.listEquipes();
-                request.setAttribute("listEquipes", listEquipes);
-                List<Joueur> listJoueurs = sessionFederation.
-        }*/
 
+            /*Création Joueur*/
         if (act.equals("creerJoueur")) {
-            if(request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty()){
+            if (request.getParameter("nom").trim().isEmpty() || request.getParameter("prenom").trim().isEmpty()) {
                 jspClient = "/federation/CreerJoueur.jsp";
                 List<Equipe> listEquipes = sessionFederation.listEquipes();
                 request.setAttribute("listEquipes", listEquipes);
                 request.setAttribute("msgError", ERREUR_CHAMP);
-            }else{          
+            } else {
                 sessionFederation.creerJoueur(request.getParameter("nom"), request.getParameter("prenom"));
                 jspClient = "/federation/Menu.jsp";
             }
             jspClient = "/federation/Menu.jsp";
-        }        
+        }
 
-        
-        /*Création Équipe*/
-            /*Choix entraineur pour l'équipe, donc affichage des entraineurs*/
-          if (act.equals("afficherEntraineur")) {
-                jspClient = "/federation/CreerEquipe.jsp";
-                List<Entraineur> listEntraineurs = sessionFederation.listEntraineur();
-                request.setAttribute("listEntraineurs", listEntraineurs);
-          }
-          
-          if (act.equals("creerEquipe")) {
-            if(request.getParameter("nom").trim().isEmpty() || request.getParameter("entraineurID").isEmpty()){
-                jspClient = "/federation/CreerEquipe.jsp";
-                List<Entraineur> listEntraineurs = sessionFederation.listEntraineur();
-                request.setAttribute("listEntraineurs", listEntraineurs);
+            /*Création Équipe*/
+                /*Choix entraineur pour l'équipe, donc affichage des entraineurs*/
+        if (act.equals("afficherEntraineur")) {
+            List<Entraineur> listEntraineurs = sessionFederation.listEntraineur();
+            request.setAttribute("listEntraineurs", listEntraineurs);
+            jspClient = "/federation/CreerEquipe.jsp";
+
+        }
+
+        if (act.equals("creerEquipe")) {
+            if (request.getParameter("nom").trim().isEmpty() || request.getParameter("entraineurID").isEmpty()) {
+                request.setAttribute("listEntraineurs", sessionFederation.listEntraineur());
                 request.setAttribute("msgError", ERREUR_CHAMP);
-            }else{
-                sessionFederation.creerEquipe(request.getParameter("nom"), sessionFederation.rechercheEntraineur(Long.parseLong(request.getParameter("entraineurID"))));
+                jspClient = "/federation/CreerEquipe.jsp";
+            } else {
+                Entraineur e = sessionFederation.rechercheEntraineur(Long.parseLong(request.getParameter("entraineurID")));
+                sessionFederation.creerEquipe(request.getParameter("nom"), e);
+                // Forcer la reconnexion pour l'entraineur déjà connecté une fois on l'a affecté pour actualiser sa page menu
+                if (session.getAttribute(AccesEntraineur.ATT_SESSION_ENTRAINEUR).equals(e)) {
+                    session.setAttribute(AccesEntraineur.ATT_SESSION_ENTRAINEUR, null);
+                }
                 jspClient = "/federation/Menu.jsp";
             }
-            jspClient = "/federation/Menu.jsp";
-        }        
-
-        
-        if (act == null || act.equals("vide")) {
-            jspClient = "/Menu.jsp";
+        }
+            /*Création Match*/
+                /*Choix arbitre et équipes*/
+        if (act.equals("afficherCreerMatch")) {
+                afficherCreerMatch(request, response);
         }
         
-        
+        if (act.equals("creerMatch")) {
+            String arbitre = request.getParameter("arbitreID");
+            String equipeR = request.getParameter("equipeReceveuse");
+            String equipeI = request.getParameter("equipeInvitee");
+            String date = request.getParameter("dateMatch")+":00";
+            
+            if (arbitre.isEmpty() || equipeR.isEmpty() || equipeI.isEmpty() || date.trim().isEmpty()) {
+                request.setAttribute("msgError", ERREUR_CHAMP);
+                afficherCreerMatch(request, response);
+            }
+            else{
+                sessionFederation.creerMatch(Timestamp.valueOf(date), Long.parseLong(equipeR), Long.parseLong(equipeI), Long.parseLong(arbitre));
+                jspClient="/federation/Menu.jsp";
+            }
+        }
+
+       /* if (act == null || act.equals("vide")) {
+            jspClient = "/Menu.jsp";
+        }*/
+
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
 
+    }
+    
+    protected void afficherCreerMatch(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            request.setAttribute("listEquipes", sessionFederation.listEquipes());
+            request.setAttribute("listArbitres", sessionFederation.listArbitres());
+            jspClient = "/federation/CreerMatch.jsp";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

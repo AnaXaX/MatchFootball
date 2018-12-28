@@ -6,7 +6,6 @@
 package servlet;
 
 import entities.Equipe;
-import entities.Joueur;
 import java.io.IOException;
 import java.util.Collection;
 import javax.ejb.EJB;
@@ -63,14 +62,9 @@ public class AccesCommun extends HttpServlet {
                 request.setAttribute("msgError", "Une erreur est produite lors du choix de l'équipe");
              }else{
                 Long l = Long.parseLong(request.getParameter("equipeID"));
-     
                 Equipe e = sessionCommune.rechercheEquipe(l);
-               // Collection<Joueur> listJoueurs = e.getEffectif();  /* sessionCommune.listJoueursEquipe(sessionCommune.rechercheEquipe(l)); */        
                 
-                /*
-                for(Joueur j : listJoueurs)
-                    System.out.println(j.getNom());
-                */
+                request.setAttribute("nomEntraineur", e.getEntraineur().getNom()+" "+e.getEntraineur().getPrenom());
                 request.setAttribute("nomEquipe", e.getNom());
                 request.setAttribute("listJoueurs", e.getEffectif());
                 

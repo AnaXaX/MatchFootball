@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sessions;
 
 import entities.Entraineur;
 import entities.Equipe;
+import entities.Joueur;
 import facades.EntraineurFacadeLocal;
 import facades.EquipeFacadeLocal;
 import facades.JoueurFacadeLocal;
@@ -60,6 +56,10 @@ public class SessionEntraineur implements SessionEntraineurLocal {
     public void transfererJoueur(long idJoueur, Equipe ancienneEquipe, long nouvelleEquipe) {
         joueurFacade.transferJoueur(joueurFacade.rechercheJoueur(idJoueur), ancienneEquipe, equipeFacade.rechercheEquipe(nouvelleEquipe));
     }
-      
 
+    @Override
+    public void supprimerContratJoueur(long idJoueur) {
+        joueurFacade.supprimerContratJoueur(joueurFacade.rechercheJoueur(idJoueur));
+    }
+    
 }

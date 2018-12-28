@@ -57,17 +57,6 @@ public class Equipe implements Serializable {
     public void setEffectif(List<Joueur> effectif) {
         this.effectif = effectif;
     }
-    
-    @Column(nullable=false,unique=false)
-    private int points;
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
 
     /*Pour garder la synchronisation/relation des listes et BD*/
     public void addJoueurEffectif(Joueur joueur) {
@@ -110,6 +99,17 @@ public class Equipe implements Serializable {
 
     public void setEntraineur(Entraineur entraineur) {
         this.entraineur = entraineur;
+    }
+        
+    @Column(nullable=false,unique=false)
+    private int points;
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
     
     @Column(unique=true,nullable=false)

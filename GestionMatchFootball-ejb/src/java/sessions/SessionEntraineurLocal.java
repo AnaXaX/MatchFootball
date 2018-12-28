@@ -7,6 +7,7 @@ package sessions;
 
 import entities.Entraineur;
 import entities.Equipe;
+import entities.Joueur;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -28,5 +29,7 @@ public interface SessionEntraineurLocal {
     List listEquipesTransfert(Equipe equipeActuel);
 
     void transfererJoueur(long idJoueur, Equipe ancienneEquipe, long nouvelleEquipe);
+
+    void supprimerContratJoueur(long idJoueur);
     
 }

@@ -1,13 +1,10 @@
-<%--@page import="entities.Equipe"--%>
-<%--@page import="java.util.List"--%>
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette interface-->
+<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
 <%
-    RequestDispatcher rd = request.getRequestDispatcher("../Menu.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
     if (session.getAttribute("sessionFederation") == null) {
         rd.forward(request, response);
     }
 %>
-<%-- <jsp:useBean id="listEquipes" scope="request" class="java.util.List"></jsp:useBean> --%>
 <%@ include file="../header.jsp"%>
 
 <section class="section" style="margin-top:2rem">
@@ -54,3 +51,5 @@
     </form>          
 </section>
 <%@ include file="../footer.jsp"%>
+</body>
+</html>

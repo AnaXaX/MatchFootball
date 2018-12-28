@@ -5,7 +5,6 @@
  */
 package facades;
 
-import entities.Arbitre;
 import entities.Entraineur;
 import entities.Helpers;
 import java.io.UnsupportedEncodingException;
@@ -34,9 +33,7 @@ public class EntraineurFacade extends AbstractFacade<Entraineur> implements Entr
 
     public EntraineurFacade() {
         super(Entraineur.class);
-    }
-
-    
+    }    
     
     @Override
     public void creerEntraineur(String nom, String prenom, String login, String mdp) {

@@ -119,7 +119,7 @@ public class MatchFoot implements Serializable {
         this.arbitre = arbitre;
     }
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)//Date enleve time, timestamp regroupe date & time
     private Date dateMatch;
 
     public Date getDate() {
@@ -129,7 +129,6 @@ public class MatchFoot implements Serializable {
     public void setDate(Date date) {
         this.dateMatch = date;
     }
-
     
     private static final long serialVersionUID = 1L;
     @Id

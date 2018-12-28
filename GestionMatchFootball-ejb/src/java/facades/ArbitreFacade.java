@@ -70,4 +70,21 @@ public class ArbitreFacade extends AbstractFacade<Arbitre> implements ArbitreFac
         */
     }
 
+    @Override
+    public List listArbitres() {
+        Query requete = getEntityManager().createQuery("select a from Arbitre as a");
+        return requete.getResultList();
+    }
+
+    @Override
+    public Arbitre rechercheArbitre(long id) {
+      Arbitre a = null;
+        Query requete = getEntityManager().createQuery("select a from Arbitre as a where a.id=:id");
+        requete.setParameter("id", id);
+        List<Arbitre> list =requete.getResultList();
+        for(Arbitre aa : list){
+            a = aa;
+        }
+        return a;    }
+
 }

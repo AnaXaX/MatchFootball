@@ -5,8 +5,10 @@
  */
 package sessions;
 
+import entities.Arbitre;
 import entities.Entraineur;
 import entities.Equipe;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -37,6 +39,10 @@ public interface SessionFederationLocal {
     Equipe rechercheEquipe(long id);
 
     List listJoueurs();
+
+    List listArbitres();
+
+    void creerMatch(Timestamp date, long equipeReceveuse, long equipeInvitee, long arbitre);
 
     
 }

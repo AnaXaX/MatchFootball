@@ -8,7 +8,7 @@ package facades;
 import entities.Arbitre;
 import entities.Equipe;
 import entities.MatchFoot;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -33,6 +33,6 @@ public interface MatchFacadeLocal {
 
     int count();
 
-    void creerMatch(Date date, Equipe equipe1, Equipe equipe2, Arbitre arbitre);
+    void creerMatch(Timestamp date, Equipe equipeReceveuse, Equipe equipeInvitee, Arbitre arbitre);
     
 }

@@ -1,9 +1,9 @@
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette interface-->
 <%@page import="entities.Entraineur"%>
 <%@page import="entities.Equipe"%>
 
+<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
 <%
-    RequestDispatcher rd = request.getRequestDispatcher("../Menu.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
     if (session.getAttribute("sessionEntraineur") == null) {
         rd.forward(request, response);
     }
@@ -16,11 +16,11 @@
             <div class="media-content">
                 <div class="content">
                     <center>
-                    <p>
+                    <p class="title">
                         <% Entraineur e = (Entraineur) session.getAttribute("sessionEntraineur"); %>
-                        <strong><% out.print(e.getNom()+' '+e.getPrenom()); %></strong>
+                        <strong><%=(e.getNom()+' '+e.getPrenom())%></strong>
                     </p>
-                    <p>
+                    <p class="subtitle">
                         <% Equipe eq = (Equipe) session.getAttribute("equipe"); %>
                         <strong><% if (eq!=null) {out.print(eq.getNom());} else {out.print("Aucune équipe");} %></strong>
                     </p>
@@ -36,7 +36,7 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="${pageContext.request.contextPath}/img/transfert.png" alt="Image">
+                        <img src="${pageContext.request.contextPath}/img/contract.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -56,7 +56,7 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="${pageContext.request.contextPath}/img/Referee.png" alt="Image">
+                        <img src="${pageContext.request.contextPath}/img/transfert.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -71,12 +71,12 @@
         </div>
     </a>
 
-    <a href="${pageContext.request.contextPath}/AccesEntraineur?action=supprimerJoueur">
+    <a href="${pageContext.request.contextPath}/AccesEntraineur?action=afficherSupprimerContrat">
         <div class="box">
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                        <img src="${pageContext.request.contextPath}/img/destoyedContract.jpg" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -96,14 +96,14 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="${pageContext.request.contextPath}/img/playerPlus.png" alt="Image">
+                        <img src="${pageContext.request.contextPath}/img/strategy.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>Affecter un joueur à un match</strong><br>
-                            Vous pouvez dans ce menu créer vos effectifs pour vos match
+                            <strong>Affecter des joueurs à un match</strong><br>
+                            Vous pouvez dans ce menu gérer vos effectifs pour vos match
                         </p>
                     </div>
                 </div>
@@ -118,3 +118,5 @@
 
 </section>
 <%@ include file="../footer.jsp"%>
+</body>
+</html>

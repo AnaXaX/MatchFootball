@@ -44,4 +44,6 @@ public interface JoueurFacadeLocal {
     List listJoueurSansEquipe();
 
     void transferJoueur(Joueur joueur, Equipe ancienneEquipe, Equipe nouvelleEquipe);
+
+    void supprimerContratJoueur(Joueur j);
 }

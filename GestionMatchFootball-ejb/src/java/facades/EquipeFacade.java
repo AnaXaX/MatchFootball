@@ -43,24 +43,6 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
     }    
 
     @Override
-    public Equipe rechercheEquipe(String nom) {
-        Equipe e = null;
-        Query requete = getEntityManager().createQuery("select e from Equipe as e where e.nom=:nom");
-        requete.setParameter("nom", nom);
-        List<Equipe> list =requete.getResultList();
-        for(Equipe ee : list){
-            e = ee;
-        }
-        return e;
-    }
-
-    @Override
-    public List listEquipes() {
-       Query requete = getEntityManager().createQuery("select e from Equipe as e"); 
-       return requete.getResultList();
-    }
-
-    @Override
     public Equipe rechercheEquipe(long id) {
         Equipe e = null;
         Query requete = getEntityManager().createQuery("select e from Equipe as e where e.id=:id");
@@ -71,13 +53,25 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
         }
         return e;
     }
-
+    
+    @Override
+    public Equipe rechercheEquipe(String nom) {
+        Equipe e = null;
+        Query requete = getEntityManager().createQuery("select e from Equipe as e where e.nom=:nom");
+        requete.setParameter("nom", nom);
+        List<Equipe> list =requete.getResultList();
+        for(Equipe ee : list){
+            e = ee;
+        }
+        return e;
+    }
+    
+    
     @Override
     public Equipe rechercheEquipeParEntraineur(Entraineur entraineur) {
         Equipe e = null;
         Query requete = getEntityManager().createQuery("select e from Equipe as e where e.entraineur=:entraineur");
         requete.setParameter("entraineur", entraineur);
-        //List<Equipe> list =requete.getResultList();
         if (!requete.getResultList().isEmpty()){
             return (Equipe) requete.getSingleResult();
         } else {
@@ -86,11 +80,17 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
     }
 
     @Override
+    public List listEquipes() {
+       Query requete = getEntityManager().createQuery("select e from Equipe as e"); 
+       return requete.getResultList();
+    }
+
+    @Override
     public List listEquipesTransfert(Equipe equipeActuelle) {
         Query requete = getEntityManager().createQuery("select e from Equipe as e where e!=:equipe");
         requete.setParameter("equipe", equipeActuelle);
         return requete.getResultList();
-    }    
+    }
     
     
 }

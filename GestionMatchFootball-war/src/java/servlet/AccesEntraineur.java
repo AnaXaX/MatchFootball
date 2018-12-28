@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import entities.Entraineur;
@@ -29,7 +24,11 @@ public class AccesEntraineur extends HttpServlet {
     private SessionEntraineurLocal sessionEntraineur;
 
     public static final String ATT_SESSION_ENTRAINEUR = "sessionEntraineur";
-
+    
+  public void refreshEquipeEntraineur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getSession().setAttribute("equipe",(Equipe) sessionEntraineur.rechercheEquipeParEntraineur((Entraineur) request.getSession().getAttribute(ATT_SESSION_ENTRAINEUR)));   
+  }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -76,7 +75,7 @@ public class AccesEntraineur extends HttpServlet {
         if (act.equals("afficherTransfererJoueur")) {
             request.setAttribute("listEquipes", sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));
             request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
-            System.out.println(sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));        
+            //System.out.println(sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));        
             jspClient = "/entraineur/TransfererJoueurs.jsp";
         }
 
@@ -85,9 +84,22 @@ public class AccesEntraineur extends HttpServlet {
             for (String j : joueursId) 
                 sessionEntraineur.transfererJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"), Long.parseLong(request.getParameter("equipeID")));  
         jspClient = "/entraineur/Menu.jsp";
-
-            
         }
+        
+        if (act.equals("supprimerJoueurs")) {
+            String[] joueursId = request.getParameterValues("idJoueurs");
+            for (String j : joueursId) 
+                sessionEntraineur.supprimerContratJoueur(Long.parseLong(j));
+            /*Actualiser l'effectif en recherchant l'équipe*/
+            refreshEquipeEntraineur(request, response);
+            jspClient = "/entraineur/Menu.jsp";
+        }
+        if (act.equals("afficherSupprimerContrat")) {
+            request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
+            jspClient = "/entraineur/SupprimerContrat.jsp";
+
+        }
+        
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
 
@@ -105,14 +117,8 @@ public class AccesEntraineur extends HttpServlet {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

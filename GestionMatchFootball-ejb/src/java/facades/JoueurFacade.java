@@ -42,13 +42,13 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
 
     @Override
     public void affecterEquipe(Joueur j, Equipe e) {
-        j.getHistoriqueEquipes().add(e);
+        if(!j.getHistoriqueEquipes().contains(e))
+            j.getHistoriqueEquipes().add(e);
         //  Bidirectionnel il suffit de l'ajouter dans la liste d'effectif  pour que l'équipe du joueur change : j.setEquipe(e);
         e.addJoueurEffectif(j);
         em.merge(j);
         em.merge(e);
     }
-   
     
     @Override
     public void transferJoueur(Joueur joueur, Equipe ancienneEquipe, Equipe nouvelleEquipe) {
@@ -60,7 +60,6 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         em.merge(ancienneEquipe);
         em.merge(nouvelleEquipe);
     }
-
 
     @Override
     public List listJoueurs() {
@@ -92,8 +91,12 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         return requete.getResultList();    
     }
 
-
- 
-
+    @Override
+    public void supprimerContratJoueur(Joueur j) {
+        Equipe e = j.getEquipe();
+        e.removeJoueurEffectif(j);
+        em.merge(j);/*Apparemment les changements se font dans la table sans avoir besoin du merge car on travail directement sur le OneToMany*/
+        em.merge(e);
+    }
     
 }

@@ -1,3 +1,4 @@
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
     (function () {
         var burger = document.querySelector('.burger');
@@ -8,5 +9,3 @@
         });
     })();
 </script>
-</body>
-</html>

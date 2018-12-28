@@ -8,6 +8,7 @@ package facades;
 import entities.Arbitre;
 import entities.Equipe;
 import entities.MatchFoot;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,13 +34,22 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
     }
 
     @Override
-    public void creerMatch(Date date, Equipe equipe1, Equipe equipe2, Arbitre arbitre) {
+    public void creerMatch(Timestamp date, Equipe equipeReceveuse, Equipe equipeInvitee, Arbitre arbitre) {
         MatchFoot m = new MatchFoot();
         m.setDate(date);
-        m.setEquipeReceveuse(equipe1);
-        m.setEquipeInvitee(equipe2);
-        m.setArbitre(arbitre);
+        equipeReceveuse.addHistoriqueMatchInvites(m);
+        equipeInvitee.addHistoriqueMatchRecus(m);
+        //m.setEquipeInvitee(equipe2);
+        arbitre.addHistoriqueMatch(m);
         em.persist(m);
+        em.merge(arbitre);
+        em.merge(equipeReceveuse);
+        em.merge(equipeInvitee);
     }
+    
+    
+    
+    
+    
     
 }

@@ -33,5 +33,9 @@ public interface ArbitreFacadeLocal {
     void creerArbitre(String nom, String prenom, String login, String mdp);
 
     Arbitre authentification(String login, String mdp);
+
+    List listArbitres();
+
+    Arbitre rechercheArbitre(long id);
     
 }
