@@ -83,4 +83,7 @@ public class EntraineurFacade extends AbstractFacade<Entraineur> implements Entr
             return null;
         }   
     }
+
+
+    
 }

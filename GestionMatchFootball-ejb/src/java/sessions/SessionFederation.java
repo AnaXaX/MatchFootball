@@ -7,6 +7,8 @@ import facades.EntraineurFacadeLocal;
 import entities.Equipe;
 import facades.EquipeFacadeLocal;
 import entities.Helpers;
+import entities.Joueur;
+import entities.MatchFoot;
 import facades.JoueurFacadeLocal;
 import facades.MatchFacadeLocal;
 import java.io.UnsupportedEncodingException;
@@ -78,7 +80,8 @@ public class SessionFederation implements SessionFederationLocal {
     
     @Override
     public void creerMatch(Timestamp date, long equipeReceveuse, long equipeInvitee, long arbitre) {
-        matchFacade.creerMatch(date, equipeFacade.rechercheEquipe(equipeReceveuse), equipeFacade.rechercheEquipe(equipeReceveuse), arbitreFacade.rechercheArbitre(arbitre));
+        if(arbitreFacade.disponible(arbitre,date) && equipeFacade.disponible(equipeInvitee,date) && equipeFacade.disponible(equipeReceveuse,date)  )
+            matchFacade.creerMatch(date, equipeFacade.rechercheEquipe(equipeReceveuse), equipeFacade.rechercheEquipe(equipeReceveuse), arbitreFacade.rechercheArbitre(arbitre));
     }
 
     @Override
@@ -110,6 +113,37 @@ public class SessionFederation implements SessionFederationLocal {
     public List listArbitres() {
         return arbitreFacade.listArbitres();
     }
+
+    @Override
+    public void modifierEquipe(long idEquipe, String nom, long idEntraineur) {
+        equipeFacade.modifierEquipe(equipeFacade.rechercheEquipe(idEquipe), nom, entraineurFacade.rechercheEntraineur(idEntraineur));
+    }
+
+    @Override
+    public void supprimerEquipe(long idEquipe) {
+        /*Pour ne pas violer la contrainte de joueur dans équipe il faut supprimer tous les contrats des joueurs qui est le lien avec l'équipe*/
+        Equipe e = equipeFacade.rechercheEquipe(idEquipe);
+        
+        System.out.println(e);
+        
+        /* DELETE on table 'EQUIPE' caused a violation of foreign key constraint 'JOUEUR_EQUIPE_ID'*/
+        /*Donc je dois supprimer l'équipe de l'historique*/
+        //joueurFacade.supprimerHistoriqueEquipe(e);
+        
+        /*Rompre la relation ce qui mettera a null l'attribut équipe chez tous les joueurs de cette équipe*/
+        if(e.getEffectif()!=null && !e.getEffectif().isEmpty()){
+            e.viderEffectif();
+        }      
+        
+        /*Annuler tous les matchs de l'équipe non joués*/
+        for(MatchFoot m : e.getHistoriqueMatchs()){
+            matchFacade.annulerMatch(m);
+        } 
+        
+        equipeFacade.supprimerEquipe(e);/*merge entraineur*/
+    }
+    
+    
 
 
 }

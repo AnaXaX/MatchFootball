@@ -44,5 +44,9 @@ public interface SessionFederationLocal {
 
     void creerMatch(Timestamp date, long equipeReceveuse, long equipeInvitee, long arbitre);
 
+    void modifierEquipe(long idEquipe, String nom, long idEntraineur);
+
+    void supprimerEquipe(long idEquipe);
+
     
 }

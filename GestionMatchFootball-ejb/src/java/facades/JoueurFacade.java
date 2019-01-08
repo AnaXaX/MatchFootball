@@ -55,7 +55,7 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
         ancienneEquipe.removeJoueurEffectif(joueur);
         nouvelleEquipe.addJoueurEffectif(joueur);
         if(!joueur.getHistoriqueEquipes().contains(nouvelleEquipe))
-            joueur.getHistoriqueEquipes().add(nouvelleEquipe);
+            joueur.addHistoriqueEquipes(nouvelleEquipe);
         em.merge(joueur);
         em.merge(ancienneEquipe);
         em.merge(nouvelleEquipe);
@@ -95,8 +95,31 @@ public class JoueurFacade extends AbstractFacade<Joueur> implements JoueurFacade
     public void supprimerContratJoueur(Joueur j) {
         Equipe e = j.getEquipe();
         e.removeJoueurEffectif(j);
-        em.merge(j);/*Apparemment les changements se font dans la table sans avoir besoin du merge car on travail directement sur le OneToMany*/
+        em.merge(j);/*Apparemment après mes tests les changements se font dans la table sans avoir besoin du merge car on travail directement sur la list OneToMany dans la ligne précèdente mais je le laisse comme meme*/
         em.merge(e);
     }
+
+    @Override
+    public void supprimerHistoriqueEquipe(Equipe equipe) {
+       /* Query requete = em.createQuery("DELETE FROM JOUEUR_EQUIPE je WHERE je.historiqueEquipes_id =:equipe ");
+        requete.setParameter("equipe", equipe.getId());
+        int rowsDeleted = requete.executeUpdate();
+        System.out.println("entities deleted: " + rowsDeleted);
+        em.getTransaction().commit();
+        */
+
+        List<Joueur> tousJoueurs = listJoueurs();
+        for(Joueur j : tousJoueurs){
+            if(j.getHistoriqueEquipes().contains(equipe)){
+                System.out.println("je joue au barça, i am "+j);
+                j.removeHistoriqueEquipes(equipe);               
+                em.merge(j);
+            }              
+        }
+        em.merge(equipe);
+        em.clear();
+    }
+    
+    
     
 }

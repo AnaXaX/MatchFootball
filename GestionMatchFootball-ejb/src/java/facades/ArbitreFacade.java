@@ -10,7 +10,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entities.Helpers;
+import entities.MatchFoot;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,15 +61,16 @@ public class ArbitreFacade extends AbstractFacade<Arbitre> implements ArbitreFac
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ArbitreFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(!requete.getResultList().isEmpty())
+        if (!requete.getResultList().isEmpty()) {
             a = (Arbitre) requete.getSingleResult();
+        }
         return a;
-        
+
         /*  List<Arbitre> list =requete.getResultList();
         for(Arbitre aa : list){
             a = aa;
         }
-        */
+         */
     }
 
     @Override
@@ -78,13 +81,33 @@ public class ArbitreFacade extends AbstractFacade<Arbitre> implements ArbitreFac
 
     @Override
     public Arbitre rechercheArbitre(long id) {
-      Arbitre a = null;
+        Arbitre a = null;
         Query requete = getEntityManager().createQuery("select a from Arbitre as a where a.id=:id");
         requete.setParameter("id", id);
-        List<Arbitre> list =requete.getResultList();
-        for(Arbitre aa : list){
-            a = aa;
+        if (!requete.getResultList().isEmpty()) {
+            a = (Arbitre) requete.getSingleResult();
         }
-        return a;    }
+        return a;
+    }
+
+    @Override
+    public boolean disponible(long id, Timestamp date) {
+        boolean disponible = true;
+        Arbitre a = rechercheArbitre(id);
+        long duration = ((120 * 60)/* + 00*/) * 1000;// On considère qu'un Match dure 2 heures
+        Timestamp dateMin = ((Timestamp) date.clone());
+        Timestamp dateMax = ((Timestamp) date.clone());
+        dateMin.setTime(date.getTime() - duration);
+        dateMax.setTime(date.getTime() + duration);
+
+        for (MatchFoot match : a.getHistoriqueMatchs()) {
+            
+            if (match.getDate().before(dateMax) && match.getDate().after(dateMin)) {           
+                disponible = false;
+                break; 
+            }
+        }
+        return disponible;
+    }
 
 }

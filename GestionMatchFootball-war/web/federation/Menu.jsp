@@ -9,7 +9,8 @@
 <%@ include file="../header.jsp"%>
 <section class="section animated fadeIn">
 
-    <a href="${pageContext.request.contextPath}/AccesFederation?action=afficherEntraineur" >
+   <%-- <a href="${pageContext.request.contextPath}/AccesFederation?action=afficherEntraineur"> --%>
+    <a href="${pageContext.request.contextPath}/federation/GestionEquipe.jsp" >
         <div class="box">
             <article class="media">
                 <div class="media-left">
@@ -20,8 +21,8 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>Créer des équipes</strong><br>
-                            Vous pouvez dans ce menu créer de nouvelles équipes
+                            <strong>Gestion des équipes</strong><br>
+                            Vous pouvez dans ce menu créer de nouvelles équipes, modifier ou encore supprimer.
                         </p>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
         </div>
     </a>
 
-    <a href="${pageContext.request.contextPath}/federation/CreerJoueur.jsp">
+    <a href="${pageContext.request.contextPath}/federation/GestionJoueur.jsp">
         <div class="box">
             <article class="media">
                 <div class="media-left">
@@ -80,8 +81,8 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>Créer des Joueurs</strong><br>
-                            Vous pouvez dans ce menu créer de nouveaux joueurs
+                            <strong>Gestion des Joueurs</strong><br>
+                            Vous pouvez dans ce menu créer de nouveux joueurs, modifier ou encore supprimer.
                         </p>
                     </div>
                 </div>

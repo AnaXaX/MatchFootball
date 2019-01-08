@@ -18,7 +18,14 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class MatchFoot implements Serializable {
-
+    
+    public boolean isPlayed(){
+        if(scoreEquipeInvitee<0 || scoreEquipeReceveuse<0)
+            return false;
+        else
+            return true;
+    }
+    
     @OneToMany
     private List<Joueur> effectifEquipeInvitee;
 

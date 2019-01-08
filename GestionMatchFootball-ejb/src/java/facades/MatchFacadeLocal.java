@@ -34,5 +34,7 @@ public interface MatchFacadeLocal {
     int count();
 
     void creerMatch(Timestamp date, Equipe equipeReceveuse, Equipe equipeInvitee, Arbitre arbitre);
+
+    void annulerMatch(MatchFoot match);
     
 }

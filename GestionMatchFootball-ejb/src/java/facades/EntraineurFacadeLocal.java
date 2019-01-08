@@ -38,5 +38,6 @@ public interface EntraineurFacadeLocal {
     List listEntraineurs();
 
     Entraineur authentification(String login, String mdp);
+
     
 }

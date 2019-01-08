@@ -96,10 +96,12 @@
 $( '.flatpickr' ).flatpickr({
     locale: "fr",
     enableTime: true,
-    dateFormat: "Y-m-d H:i",
+    dateFormat: "Y-m-d H:i:s",
     minDate: "today", /*On peut pas créer un match qui va se passer hier */
     minTime: "08:00", /*Ici le javascript permet de limiter la création d'un match a des heures normales*/
-    maxTime: "22:00"
+    maxTime: "22:00",
+    altInput: true,
+    altFormat: "j F, Y à H:i"
     //time_24hr: true
 });
 </script>

@@ -1,12 +1,7 @@
 <%@page import="entities.Entraineur"%>
 <%@page import="java.util.List"%>
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
-<%
-    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
-    if (session.getAttribute("sessionFederation") == null) {
-        rd.forward(request, response);
-    }
-%>
+<%@ include file="/federation/RedirectionFederation.jsp"%>
+
 <jsp:useBean id="listEntraineurs" scope="request" class="java.util.List"></jsp:useBean>
 <%@ include file="../header.jsp"%>
 
@@ -16,7 +11,7 @@
             <p class="control has-icons-left">
                 <input name="nom" class="input has-text-info is-fullwidth is-large has-text-centered" type="text" placeholder="Nom de l'équipe">
                 <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-flag-checkered"></i>
                 </span>
             </p>
         </div>

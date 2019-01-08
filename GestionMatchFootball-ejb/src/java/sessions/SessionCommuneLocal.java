@@ -25,5 +25,7 @@ public interface SessionCommuneLocal {
 
     List listJoueursEquipe(Equipe equipe);
 
+    List classement();
+
     
 }

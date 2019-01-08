@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,13 +18,20 @@ import javax.persistence.OneToMany;
 @Entity
 public class Joueur implements Serializable {
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval=true)
     private List<Equipe> historiqueEquipes;
 
     public List<Equipe> getHistoriqueEquipes() {
         return historiqueEquipes;
     }
     
+    public void addHistoriqueEquipes(Equipe e) {
+        historiqueEquipes.add(e);
+    }
+    
+    public void removeHistoriqueEquipes(Equipe e) {
+        historiqueEquipes.remove(e);
+    }
     /*Pour garder la synchronisation/relation des listes et BD*/
     public void addFaute(Faute f) {
         fautes.add(f);

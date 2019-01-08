@@ -8,14 +8,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Grind-Machine
  */
 @Entity
-public class Entraineur implements Serializable {
 
+public class Entraineur implements Serializable {
+    
+    /*
+    @OneToOne
+    private Equipe equipe;
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+    */
+    
     @OneToMany(mappedBy = "entraineur")
     private List<Equipe> historique;
 

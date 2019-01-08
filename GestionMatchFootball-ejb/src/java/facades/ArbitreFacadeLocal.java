@@ -6,6 +6,7 @@
 package facades;
 
 import entities.Arbitre;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -37,5 +38,7 @@ public interface ArbitreFacadeLocal {
     List listArbitres();
 
     Arbitre rechercheArbitre(long id);
+
+    boolean disponible(long id, Timestamp date);
     
 }

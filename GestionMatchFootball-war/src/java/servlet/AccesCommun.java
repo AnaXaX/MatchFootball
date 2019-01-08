@@ -27,18 +27,14 @@ public class AccesCommun extends HttpServlet {
     @EJB
     private SessionCommuneLocal sessionCommune;
 
-    private Collection listJoueurs;
-
-    public Collection getListJoueurs() {
-        return listJoueurs;
-    }
-
+    public final String ERREUR_CHAMP = "Un des champs n'est pas rempli";
+    
+    private String jspClient="/Menu.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String jspClient = null;
         String act = request.getParameter("action");
        
             
@@ -63,8 +59,8 @@ public class AccesCommun extends HttpServlet {
              }else{
                 Long l = Long.parseLong(request.getParameter("equipeID"));
                 Equipe e = sessionCommune.rechercheEquipe(l);
-                
-                request.setAttribute("nomEntraineur", e.getEntraineur().getNom()+" "+e.getEntraineur().getPrenom());
+                if(e.getEntraineur()!=null)
+                    request.setAttribute("nomEntraineur", e.getEntraineur().getNom()+" "+e.getEntraineur().getPrenom());
                 request.setAttribute("nomEquipe", e.getNom());
                 request.setAttribute("listJoueurs", e.getEffectif());
                 
@@ -74,10 +70,14 @@ public class AccesCommun extends HttpServlet {
               
           }
         
-        
-        if (act == null || act.equals("vide")) {
-            jspClient = "/Menu.jsp";
+        if (act.equals("afficherClassement")) {
+            request.setAttribute("classement", sessionCommune.classement());
+            jspClient = "/accueil/Classement.jsp";
+            
         }
+        
+        
+
         
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);

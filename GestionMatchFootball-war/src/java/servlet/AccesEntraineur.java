@@ -24,16 +24,32 @@ public class AccesEntraineur extends HttpServlet {
     private SessionEntraineurLocal sessionEntraineur;
 
     public static final String ATT_SESSION_ENTRAINEUR = "sessionEntraineur";
-    
-  public void refreshEquipeEntraineur(HttpServletRequest request, HttpServletResponse response)
+
+    private String jspClient = "/entraineur/Menu.jsp";
+
+    protected void refreshEquipeEntraineur(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().setAttribute("equipe",(Equipe) sessionEntraineur.rechercheEquipeParEntraineur((Entraineur) request.getSession().getAttribute(ATT_SESSION_ENTRAINEUR)));   
-  }
+        request.getSession().setAttribute("equipe", (Equipe) sessionEntraineur.rechercheEquipeParEntraineur((Entraineur) request.getSession().getAttribute(ATT_SESSION_ENTRAINEUR)));
+    }
+
+    protected void afficherAffecterJoueur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("listJoueurs", sessionEntraineur.rechercheJoueursSansEquipe());
+        jspClient = "/entraineur/AffecterJoueur.jsp";
+    }
+
+    protected void afficherTransfertJoueur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        request.setAttribute("listEquipes", sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));
+        request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
+        jspClient = "/entraineur/TransfererJoueurs.jsp";
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String jspClient = null;
         String act = request.getParameter("action");
         HttpSession session = request.getSession();
 
@@ -59,47 +75,61 @@ public class AccesEntraineur extends HttpServlet {
             jspClient = "/entraineur/Connexion.jsp";
         }
         /*End connexion & deconnexion*/
-        if (act.equals("afficherAffecterJoueur")) {
-            request.setAttribute("listJoueurs", sessionEntraineur.rechercheJoueursSansEquipe());
-            jspClient = "/entraineur/AffecterJoueur.jsp";
 
+        if (act.equals("afficherAffecterJoueur")) {
+            afficherAffecterJoueur(request, response);
         }
 
         if (act.equals("affecterJoueurs")) {
-            String[] joueursId = request.getParameterValues("idJoueurs");
-            for (String j : joueursId) 
-                sessionEntraineur.affecterJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"));          
-            jspClient = "/entraineur/Menu.jsp";
+            if (request.getParameterValues("idJoueurs") != null && session.getAttribute("equipe") != null) {
+                String[] joueursId = request.getParameterValues("idJoueurs");
+                for (String j : joueursId) {
+                    sessionEntraineur.affecterJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"));
+                }
+                jspClient = "/entraineur/Menu.jsp";
+            } else {
+                afficherAffecterJoueur(request, response);
+            }
+
         }
 
         if (act.equals("afficherTransfererJoueur")) {
-            request.setAttribute("listEquipes", sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));
-            request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
-            //System.out.println(sessionEntraineur.listEquipesTransfert((Equipe) session.getAttribute("equipe")));        
-            jspClient = "/entraineur/TransfererJoueurs.jsp";
+            afficherTransfertJoueur(request, response);
         }
 
         if (act.equals("transfererJoueurs")) {
-            String[] joueursId = request.getParameterValues("idJoueurs");
-            for (String j : joueursId) 
-                sessionEntraineur.transfererJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"), Long.parseLong(request.getParameter("equipeID")));  
-        jspClient = "/entraineur/Menu.jsp";
+            if (request.getParameter("equipeID") == null || request.getParameterValues("idJoueurs")==null || session.getAttribute("equipe") == null) {
+                afficherTransfertJoueur(request, response);
+            } else {
+                String[] joueursId = request.getParameterValues("idJoueurs");
+                for (String j : joueursId) {
+                    sessionEntraineur.transfererJoueur(Long.parseLong(j), (Equipe) session.getAttribute("equipe"), Long.parseLong(request.getParameter("equipeID")));
+                }
+                jspClient = "/entraineur/Menu.jsp";
+            }
         }
-        
+
         if (act.equals("supprimerJoueurs")) {
-            String[] joueursId = request.getParameterValues("idJoueurs");
-            for (String j : joueursId) 
-                sessionEntraineur.supprimerContratJoueur(Long.parseLong(j));
-            /*Actualiser l'effectif en recherchant l'équipe*/
-            refreshEquipeEntraineur(request, response);
-            jspClient = "/entraineur/Menu.jsp";
+            if (request.getParameterValues("idJoueurs") == null) {
+                request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
+                jspClient = "/entraineur/SupprimerContrat.jsp";
+            } else {
+                String[] joueursId = request.getParameterValues("idJoueurs");
+                for (String j : joueursId) {
+                    sessionEntraineur.supprimerContratJoueur(Long.parseLong(j));
+                }
+                /*Actualiser l'effectif en recherchant l'équipe*/
+                refreshEquipeEntraineur(request, response);
+                jspClient = "/entraineur/Menu.jsp";
+            }
         }
+
         if (act.equals("afficherSupprimerContrat")) {
             request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
             jspClient = "/entraineur/SupprimerContrat.jsp";
 
         }
-        
+
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
 

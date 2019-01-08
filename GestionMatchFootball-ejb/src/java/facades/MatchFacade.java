@@ -41,15 +41,17 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
         equipeInvitee.addHistoriqueMatchRecus(m);
         //m.setEquipeInvitee(equipe2);
         arbitre.addHistoriqueMatch(m);
+        m.setScoreEquipeInvitee(-1);
+        m.setScoreEquipeReceveuse(-1);
         em.persist(m);
         em.merge(arbitre);
         em.merge(equipeReceveuse);
         em.merge(equipeInvitee);
     }
-    
-    
-    
-    
-    
-    
+
+    @Override
+    public void annulerMatch(MatchFoot match) {
+        em.remove(match);
+    }      
+            
 }

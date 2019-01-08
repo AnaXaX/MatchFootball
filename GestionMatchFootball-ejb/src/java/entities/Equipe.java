@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -17,6 +18,115 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Equipe implements Serializable {
+    
+    public int calculerPointsFromHistorique(){
+        return matchsGagnes()*3+matchsEgalites()*1;
+    }
+    
+    public int butsMarques(){
+        int i = 0;
+        for(MatchFoot m : getHistoriqueMatchs()){
+            if(m.isPlayed()){
+                int notreScore;
+                
+                if(this.equals(m.getEquipeInvitee()))
+                    notreScore=m.getScoreEquipeInvitee();
+                
+                else{
+                    notreScore=m.getScoreEquipeReceveuse();
+                }
+                
+                i+=notreScore;
+                         
+            }
+        }
+        return i;
+    }
+    
+       public int butsRecus(){
+        int i = 0;
+        for(MatchFoot m : getHistoriqueMatchs()){
+            if(m.isPlayed()){
+                int scoreAdversaire;
+                
+                if(this.equals(m.getEquipeInvitee()))
+                    scoreAdversaire=m.getScoreEquipeReceveuse();
+         
+                else
+                    scoreAdversaire=m.getScoreEquipeInvitee();
+     
+                i+=scoreAdversaire;
+                         
+            }
+        }
+        return i;
+    }
+    
+    public int matchsGagnes(){
+        int i = 0;
+        for(MatchFoot m : getHistoriqueMatchs()){
+            if(m.isPlayed()){
+                int notreScore, scoreAdversaire;
+                
+                if(this.equals(m.getEquipeInvitee())){
+                    notreScore=m.getScoreEquipeInvitee();
+                    scoreAdversaire=m.getScoreEquipeReceveuse();                   
+                }
+                else{
+                    notreScore=m.getScoreEquipeReceveuse();
+                    scoreAdversaire=m.getScoreEquipeInvitee();
+                }
+                
+                if(notreScore>scoreAdversaire)
+                    i++;          
+            }
+        }
+        return i;
+    }
+    
+        public int matchsPerdus(){
+        int i = 0;
+        for(MatchFoot m : getHistoriqueMatchs()){
+            if(m.isPlayed()){
+                int notreScore, scoreAdversaire;
+                
+                if(this.equals(m.getEquipeInvitee())){
+                    notreScore=m.getScoreEquipeInvitee();
+                    scoreAdversaire=m.getScoreEquipeReceveuse();                   
+                }
+                else{
+                    notreScore=m.getScoreEquipeReceveuse();
+                    scoreAdversaire=m.getScoreEquipeInvitee();
+                }
+                
+                if(notreScore<scoreAdversaire)
+                    i++;             
+            }
+        }
+        return i;
+    }
+        
+    public int matchsEgalites(){
+        int i = 0;
+        for(MatchFoot m : getHistoriqueMatchs()){
+            if(m.isPlayed()){
+                int notreScore, scoreAdversaire;
+                
+                if(this.equals(m.getEquipeInvitee())){
+                    notreScore=m.getScoreEquipeInvitee();
+                    scoreAdversaire=m.getScoreEquipeReceveuse();                   
+                }
+                else{
+                    notreScore=m.getScoreEquipeReceveuse();
+                    scoreAdversaire=m.getScoreEquipeInvitee();
+                }
+                
+                if(notreScore==scoreAdversaire)
+                    i++;
+            }
+        }
+        return i;
+    }
 
     public List<MatchFoot> getHistoriqueMatchs() {
         List<MatchFoot> historiqueMatchs = new ArrayList<>();
@@ -57,6 +167,10 @@ public class Equipe implements Serializable {
     public void setEffectif(List<Joueur> effectif) {
         this.effectif = effectif;
     }
+    
+    public void viderEffectif(){
+        effectif.clear();
+    }
 
     /*Pour garder la synchronisation/relation des listes et BD*/
     public void addJoueurEffectif(Joueur joueur) {
@@ -91,6 +205,7 @@ public class Equipe implements Serializable {
     /*Pour garder la synchronisation/relation des listes et BD*/  
     
     @ManyToOne
+    @OneToOne(mappedBy = "equipe")
     private Entraineur entraineur;
 
     public Entraineur getEntraineur() {

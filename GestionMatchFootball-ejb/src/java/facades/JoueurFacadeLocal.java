@@ -46,4 +46,6 @@ public interface JoueurFacadeLocal {
     void transferJoueur(Joueur joueur, Equipe ancienneEquipe, Equipe nouvelleEquipe);
 
     void supprimerContratJoueur(Joueur j);
+
+    void supprimerHistoriqueEquipe(Equipe equipe);
 }

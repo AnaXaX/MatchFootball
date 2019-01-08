@@ -7,6 +7,7 @@ package facades;
 
 import entities.Entraineur;
 import entities.Equipe;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -39,10 +40,18 @@ public interface EquipeFacadeLocal {
 
     Equipe rechercheEquipe(long id);
 
-   // void ajouterJoueur(Equipe equipe, Joueur joueur);
-
     Equipe rechercheEquipeParEntraineur(Entraineur entraineur);
 
     List listEquipesTransfert(Equipe equipeActuelle);
+
+    boolean disponible(long id, Timestamp date);
+
+    void supprimerEntraineurEquipe(Entraineur entraineur);
+
+    List classement();
+
+    void modifierEquipe(Equipe equipe, String newNom, Entraineur newEntraineur);
+
+    void supprimerEquipe(Equipe equipe);
     
 }
