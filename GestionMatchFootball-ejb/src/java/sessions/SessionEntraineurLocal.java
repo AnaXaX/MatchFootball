@@ -8,6 +8,7 @@ package sessions;
 import entities.Entraineur;
 import entities.Equipe;
 import entities.Joueur;
+import entities.MatchFoot;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,5 +32,11 @@ public interface SessionEntraineurLocal {
     void transfererJoueur(long idJoueur, Equipe ancienneEquipe, long nouvelleEquipe);
 
     void supprimerContratJoueur(long idJoueur);
+
+    List listMatchsTactique(Equipe equipe);
+
+    MatchFoot rechercheMatchId(long id);
+
+    void affecterMatch(String[] idJoueurs, long idMatch, Equipe e);
     
 }

@@ -1,13 +1,8 @@
 <%@page import="entities.Equipe"%>
 <%@page import="entities.Joueur"%>
 <%@page import="java.util.Collection"%>
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
-<%
-    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
-    if (session.getAttribute("sessionEntraineur") == null) {
-        rd.forward(request, response);
-    }
-%>
+<%@ include file="/entraineur/RedirectionEntraineur.jsp" %>
+
 <jsp:useBean id="listJoueurs" scope="request" class="java.util.Collection"></jsp:useBean>
 <jsp:useBean id="listEquipes" scope="request" class="java.util.Collection"></jsp:useBean> 
 <style>

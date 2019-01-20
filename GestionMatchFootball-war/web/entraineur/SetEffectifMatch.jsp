@@ -1,4 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entities.Joueur"%>
+<%@page import="entities.MatchFoot"%>
 <%@page import="java.util.Collection"%>
 <%@ include file="/entraineur/RedirectionEntraineur.jsp" %>
 
@@ -10,24 +12,11 @@
 
 <section class="section" style="margin-top:2rem">
     <%        Collection<Joueur> joueurs = listJoueurs;
-        System.out.println(joueurs);
+              MatchFoot match = (MatchFoot) request.getAttribute("match");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy à HH:mm");
     %>         
-    <h1 class="title">Liste des joueurs à supprimer le contrat</h1>
-
-    <!-- Table checking -->
-    <table class="table is-striped is-hoverable is-fullwidth">
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-        </tr>
-        <%            for (Joueur j : joueurs) {
-        %>         
-        <tr>
-            <td><%=j.getNom()%></td>
-            <td><%=j.getPrenom()%></td>
-        </tr>
-        <%}%>
-    </table>     
+    <h1 class="title">Liste des joueurs à affecter pour le match du <%=dateFormat.format(match.getDate())%> arbitré par <%=match.getArbitre().getNom()+" "+match.getArbitre().getPrenom()%></h1>
+    <h1 class="subtitle"><%=match.getEquipeInvitee().getNom()+" VS "+match.getEquipeReceveuse().getNom()%></h1>
 
     <form method="post" action="${pageContext.request.contextPath}/AccesEntraineur">
         <div class="columns is-multiline">
@@ -55,8 +44,9 @@
             <%i++;
                 }%>
         </div>
-        <input value="supprimerJoueurs" name="action" type="hidden">
-        <input style="margin-top: 1rem" class="button is-large is-success" value="Supprimer les joueurs" type="submit">
+        <input value="<%=match.getId()%>" name="idMatch" type="hidden">
+        <input value="affecterJoueursTactique" name="action" type="hidden">
+        <input style="margin-top: 1rem" class="button is-large is-success" value="Affecter les joueurs" type="submit">
     </form>
 
 

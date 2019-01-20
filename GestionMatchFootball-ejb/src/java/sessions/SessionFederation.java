@@ -81,7 +81,7 @@ public class SessionFederation implements SessionFederationLocal {
     @Override
     public void creerMatch(Timestamp date, long equipeReceveuse, long equipeInvitee, long arbitre) {
         if(arbitreFacade.disponible(arbitre,date) && equipeFacade.disponible(equipeInvitee,date) && equipeFacade.disponible(equipeReceveuse,date)  )
-            matchFacade.creerMatch(date, equipeFacade.rechercheEquipe(equipeReceveuse), equipeFacade.rechercheEquipe(equipeReceveuse), arbitreFacade.rechercheArbitre(arbitre));
+            matchFacade.creerMatch(date, equipeFacade.rechercheEquipe(equipeReceveuse), equipeFacade.rechercheEquipe(equipeInvitee), arbitreFacade.rechercheArbitre(arbitre));
     }
 
     @Override

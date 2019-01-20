@@ -1,11 +1,4 @@
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
-
-<%
-    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
-    if (session.getAttribute("sessionFederation") == null) {
-        rd.forward(request, response);
-    }
-%>
+<%@ include file="/federation/RedirectionFederation.jsp" %>
 <%@ include file="../header.jsp"%>
 <section class="section animated fadeIn">
 
@@ -22,7 +15,7 @@
                     <div class="content">
                         <p>
                             <strong>Gestion des équipes</strong><br>
-                            Vous pouvez dans ce menu créer de nouvelles équipes, modifier ou encore supprimer.
+                            Vous pouvez dans ce menu créer de nouvelles équipes ou encore de modifier modifier. <%--ou encore supprimer--%>
                         </p>
                     </div>
                 </div>
@@ -82,7 +75,7 @@
                     <div class="content">
                         <p>
                             <strong>Gestion des Joueurs</strong><br>
-                            Vous pouvez dans ce menu créer de nouveux joueurs, modifier ou encore supprimer.
+                            Vous pouvez dans ce menu créer de nouveux joueurs, modifier ou encore sanctionner.
                         </p>
                     </div>
                 </div>

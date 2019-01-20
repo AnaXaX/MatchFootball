@@ -27,6 +27,18 @@ public class AccesEntraineur extends HttpServlet {
 
     private String jspClient = "/entraineur/Menu.jsp";
 
+    protected void choixJoueursMatchTactique(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            request.setAttribute("listJoueurs", ((Equipe) request.getSession().getAttribute("equipe")).getEffectif());
+            request.setAttribute("match", sessionEntraineur.rechercheMatchId(Long.parseLong(request.getParameter("idMatch"))));
+            jspClient = "/entraineur/SetEffectifMatch.jsp";         
+    }
+
+    protected void choixMatchTactique(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+                request.setAttribute("listMatchs", sessionEntraineur.listMatchsTactique((Equipe) request.getSession().getAttribute("equipe")));
+            jspClient = "/entraineur/ChoixMatchsTactique.jsp";
+    }
     protected void refreshEquipeEntraineur(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getSession().setAttribute("equipe", (Equipe) sessionEntraineur.rechercheEquipeParEntraineur((Entraineur) request.getSession().getAttribute(ATT_SESSION_ENTRAINEUR)));
@@ -118,7 +130,7 @@ public class AccesEntraineur extends HttpServlet {
                 for (String j : joueursId) {
                     sessionEntraineur.supprimerContratJoueur(Long.parseLong(j));
                 }
-                /*Actualiser l'effectif en recherchant l'équipe*/
+                /*Actualiser l'effectif en bidirectionnel en recherchant l'équipe*/
                 refreshEquipeEntraineur(request, response);
                 jspClient = "/entraineur/Menu.jsp";
             }
@@ -127,7 +139,35 @@ public class AccesEntraineur extends HttpServlet {
         if (act.equals("afficherSupprimerContrat")) {
             request.setAttribute("listJoueurs", ((Equipe) session.getAttribute("equipe")).getEffectif());
             jspClient = "/entraineur/SupprimerContrat.jsp";
-
+ 
+        }
+        
+        if (act.equals("ChoixMatchsTactique")) {
+            choixMatchTactique(request, response);
+        }
+        
+        if (act.equals("setEffectifMatch")) {
+            if(request.getParameter("idMatch")!=null){
+                choixJoueursMatchTactique(request, response);
+            }
+            else{
+                choixMatchTactique(request, response);
+            }
+        }
+        
+        
+        if (act.equals("affecterJoueursTactique")) {
+            if (request.getParameterValues("idJoueurs") == null) {
+                choixJoueursMatchTactique(request, response);
+            }
+            else{          
+               // String[] joueursId = request.getParameterValues("idJoueurs");
+              //  for (String j : joueursId) {
+                   
+                sessionEntraineur.affecterMatch(request.getParameterValues("idJoueurs"),Long.parseLong(request.getParameter("idMatch")),((Equipe) session.getAttribute("equipe")));
+              //  }
+                jspClient = "/entraineur/Menu.jsp";
+            }
         }
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);

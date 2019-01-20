@@ -36,5 +36,11 @@ public interface MatchFacadeLocal {
     void creerMatch(Timestamp date, Equipe equipeReceveuse, Equipe equipeInvitee, Arbitre arbitre);
 
     void annulerMatch(MatchFoot match);
-    
+
+    List afficherMatchsTactique(Equipe equipe);
+
+    MatchFoot rechercheMatchId(long id);
+
+    void affecterMatch(List joueurs, MatchFoot match, Equipe e);
+
 }

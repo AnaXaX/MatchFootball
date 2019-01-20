@@ -1,13 +1,7 @@
 <%@page import="entities.Equipe"%>
 <%@page import="entities.Arbitre"%>
 <%@page import="java.util.List"%>
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
-<%
-    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
-    if (session.getAttribute("sessionFederation") == null) {
-        rd.forward(request, response);
-    }
-%>
+<%@ include file="/federation/RedirectionFederation.jsp" %>
 <jsp:useBean id="listEquipes" scope="request" class="java.util.List"></jsp:useBean>
 <jsp:useBean id="listArbitres" scope="request" class="java.util.List"></jsp:useBean>
 <style>

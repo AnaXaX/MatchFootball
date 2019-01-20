@@ -1,7 +1,6 @@
 <%@page import="entities.Entraineur"%>
 <%@page import="java.util.List"%>
 <%@ include file="/federation/RedirectionFederation.jsp"%>
-
 <jsp:useBean id="listEntraineurs" scope="request" class="java.util.List"></jsp:useBean>
 <%@ include file="../header.jsp"%>
 

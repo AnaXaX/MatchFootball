@@ -48,6 +48,18 @@ public class MatchFoot implements Serializable {
         this.effectifEquipeReceveuse = effectifEquipeReceveuse;
     }
     
+    @OneToMany
+    private List<Effectif> effectif;
+
+    public List<Effectif> getEffectif() {
+        return effectif;
+    }
+
+    public void setEffectif(List effectif) {
+        this.effectif = effectif;
+    }
+
+    
     @OneToMany(mappedBy = "match")
     private List<Faute> fautes;
 

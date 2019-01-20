@@ -62,6 +62,15 @@ public class Equipe implements Serializable {
         return i;
     }
     
+       public int matchsJoues(){
+           int i = 0;
+           for(MatchFoot m : getHistoriqueMatchs()){
+               if(m.isPlayed())
+                   i++;
+           }
+           return i;
+       }
+       
     public int matchsGagnes(){
         int i = 0;
         for(MatchFoot m : getHistoriqueMatchs()){

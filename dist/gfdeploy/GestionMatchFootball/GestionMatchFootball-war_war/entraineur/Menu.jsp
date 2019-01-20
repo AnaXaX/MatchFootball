@@ -1,13 +1,8 @@
 <%@page import="entities.Entraineur"%>
 <%@page import="entities.Equipe"%>
 
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
-<%
-    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");
-    if (session.getAttribute("sessionEntraineur") == null) {
-        rd.forward(request, response);
-    }
-%>
+<%@ include file="/entraineur/RedirectionEntraineur.jsp" %>
+
 <%@ include file="../header.jsp"%>
 <section class="section animated fadeIn">
 
@@ -16,15 +11,14 @@
             <div class="media-content">
                 <div class="content">
                     <center>
-                    <p class="title">
-                        <% Entraineur e = (Entraineur) session.getAttribute("sessionEntraineur"); %>
-                        <strong><%=(e.getNom()+' '+e.getPrenom())%></strong>
-                    </p>
-                    <p class="subtitle">
-                        <% Equipe eq = (Equipe) session.getAttribute("equipe"); %>
-                        <strong><% if (eq!=null) {out.print(eq.getNom());} else {out.print("Aucune équipe");} %></strong>
-                    </p>
-                        
+                        <p class="title">
+                            <% Entraineur e = (Entraineur) session.getAttribute("sessionEntraineur"); %>
+                            <strong><%=(e.getNom()+' '+e.getPrenom())%></strong>
+                        </p>
+                        <p class="subtitle">
+                            <% Equipe eq = (Equipe) session.getAttribute("equipe"); %>
+                            <strong><% if (eq!=null) {out.print(eq.getNom());} else {out.print("Aucune équipe");} %></strong>
+                        </p>                   
                     </center>
                 </div>
             </div>
@@ -91,7 +85,7 @@
         </div>
     </a>
 
-    <a href="${pageContext.request.contextPath}/AccesEntraineur?action=affecterJoueurEffectif">
+    <a href="${pageContext.request.contextPath}/AccesEntraineur?action=ChoixMatchsTactique">
         <div class="box">
             <article class="media">
                 <div class="media-left">

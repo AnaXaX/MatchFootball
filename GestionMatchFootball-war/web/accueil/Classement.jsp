@@ -37,7 +37,7 @@
         <tr >
             <td class="has-text-centered"><%=i%></td>
             <td class="has-text-centered"><%=e.getNom()%></td>
-            <td class="has-text-centered"><%=e.getHistoriqueMatchs().size()%></td>
+            <td class="has-text-centered"><%=e.matchsJoues()%></td>
             <td class="has-text-centered"><%=e.matchsGagnes()%></td>
             <td class="has-text-centered"><%=e.matchsEgalites()%></td>
             <td class="has-text-centered"><%=e.matchsPerdus()%></td>
