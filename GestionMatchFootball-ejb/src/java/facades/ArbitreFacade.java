@@ -65,12 +65,6 @@ public class ArbitreFacade extends AbstractFacade<Arbitre> implements ArbitreFac
             a = (Arbitre) requete.getSingleResult();
         }
         return a;
-
-        /*  List<Arbitre> list =requete.getResultList();
-        for(Arbitre aa : list){
-            a = aa;
-        }
-         */
     }
 
     @Override

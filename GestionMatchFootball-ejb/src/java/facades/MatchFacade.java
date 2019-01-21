@@ -8,7 +8,6 @@ package facades;
 import entities.Arbitre;
 import entities.Effectif;
 import entities.Equipe;
-import entities.Joueur;
 import entities.MatchFoot;
 import entities.ReceveuseInvitee;
 import java.sql.Timestamp;
@@ -127,8 +126,8 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
     }
 
     @Override
-    public java.util.List<entities.MatchFoot> listMatchs() {
-        return getEntityManager().createQuery("select m from MatchFoot as m ").getResultList();
+    public List listMatchs() {
+        return getEntityManager().createQuery("select m from MatchFoot as m order by m.dateMatch").getResultList();
     }
     
     @Override

@@ -8,8 +8,6 @@ package servlet;
 import entities.Equipe;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,25 +42,22 @@ public class AccesCommun extends HttpServlet {
         System.out.println(act);
 
         if (act.equals("afficherEquipe")) {
-            jspClient = "/accueil/ChoixEquipe.jsp";
-            Collection<Equipe> listEquipes = sessionCommune.listEquipes();
-            request.setAttribute("listEquipes", listEquipes);
+
+            request.setAttribute("listEquipes", sessionCommune.listEquipes());
         }
 
         if (act.equals("afficherEquipeMatch")) {
             jspClient = "/accueil/choixEquipeMatch.jsp";
-            Collection<Equipe> listEquipes = sessionCommune.listEquipes();
-            request.setAttribute("listEquipes", listEquipes);
+            request.setAttribute("listEquipes", sessionCommune.listEquipes());
         }
         if (act.equals("afficherEffectifMatch")) {
             jspClient = "/accueil/ChoixMatchs.jsp";
-            List listMatchs = sessionCommune.listMatchs();
-            request.setAttribute("listMatchs", listMatchs);
+            request.setAttribute("listMatchs", sessionCommune.listMatchs());
         }
         if (act.equals("afficherMatchsEquipe")) {
-            if (request.getParameter("equipeID").trim().isEmpty() || request.getParameter("equipeID").isEmpty()) {
+            if (request.getParameter("equipeID") ==null || request.getParameter("equipeID").trim().isEmpty()) {
                 jspClient = "/accueil/choixEquipeMatch.jsp";
-                request.setAttribute("msgError", "Une erreur est produite lors du choix de l'équipe");
+                request.setAttribute("listEquipes", sessionCommune.listEquipes());
             } else {
                 Long l = Long.parseLong(request.getParameter("equipeID"));
                 Equipe e = sessionCommune.rechercheEquipe(l);
@@ -74,7 +69,7 @@ public class AccesCommun extends HttpServlet {
         }
         
         if (act.equals("getEffectifMatch")) {
-            if (request.getParameter("idMatch").equals(null) || request.getParameter("idMatch").equals("")) {
+            if (request.getParameter("idMatch") ==(null) || request.getParameter("idMatch").isEmpty()) {
                 jspClient = "/AccesCommun?action=afficherEffectifMatch";
                 request.setAttribute("msgError", "Une erreur est produite lors du choix de l'équipe");
             } else {
@@ -110,7 +105,7 @@ public class AccesCommun extends HttpServlet {
         }
         
             if (act.equals("chercherMatchs")) {
-            if (request.getParameter("dateMatch") != null) {
+            if (request.getParameter("dateMatch") != null && !request.getParameter("dateMatch").isEmpty()) {
                 //System.out.println(request.getParameter("dateMatch"));
                if (request.getParameter("dateMatch").length() < 20) {
                    // System.out.println("Date d l match : "+Timestamp.valueOf(request.getParameter("dateMatch")));
@@ -122,6 +117,8 @@ public class AccesCommun extends HttpServlet {
                      request.setAttribute("listMatchs",  sessionCommune.rechercheMatch(Timestamp.valueOf(date[0].trim()), Timestamp.valueOf(date[1].trim())));
                     jspClient = "/accueil/AfficherMatchs.jsp";
                 }
+            }else{
+                jspClient = "/accueil/choixIntervalle.jsp";
             }
         }
 

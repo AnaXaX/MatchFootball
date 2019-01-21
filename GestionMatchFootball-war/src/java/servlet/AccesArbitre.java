@@ -3,6 +3,7 @@ package servlet;
 import entities.Arbitre;
 import java.io.IOException;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,31 +22,30 @@ public class AccesArbitre extends HttpServlet {
     @EJB
     private SessionArbitreLocal sessionArbitre;
 
-    private Arbitre arbitre;
-
     private final String ATT_SESSION_ARBITRE = "sessionArbitre";
 
+    private String jspClient = "/arbitre/Menu.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-   
-        
-        String jspClient = null;
+
         HttpSession session = request.getSession();
         String act = request.getParameter("action");
-        
-           /*Control Connexion*/
-        if (act.equals("authentification")) {      
-            arbitre = null;
-            String login = request.getParameter("loginArbitre");
-            String mdp = request.getParameter("mdpArbitre");
-            arbitre = sessionArbitre.authentification(login,mdp);
-            
-            if (arbitre!=null) {
+
+        /*Control Connexion*/
+        if (act.equals("Connexion")) {
+            String login = request.getParameter("login").trim();
+            String mdp = request.getParameter("password");
+            Arbitre arbitre = sessionArbitre.authentification(login, mdp);
+
+            if (arbitre != null) {
+
                 jspClient = "/arbitre/Menu.jsp";
                 session.setAttribute(ATT_SESSION_ARBITRE, arbitre);//Attribuer le Token
             } else {
+                System.out.println("I am here 3");
+
                 jspClient = "/arbitre/Connexion.jsp";
                 request.setAttribute("msgError", "Wrong password");
             }
@@ -53,11 +53,11 @@ public class AccesArbitre extends HttpServlet {
 
         /*Control Deconnexion*/
         if (act.equals("deconnexion")) {
-            arbitre = null;
-            session.setAttribute(ATT_SESSION_ARBITRE, arbitre); //Enlever le Token
-            jspClient = "/Menu.jsp";
+            session.setAttribute(ATT_SESSION_ARBITRE, null); //Enlever le Token
+            jspClient = "/arbitre/Connexion.jsp";
         }
-        
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -26,7 +26,7 @@
             <article class="media">       
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="${pageContext.request.contextPath}/img/matchFoot.png" alt="Image">
+                        <img src="${pageContext.request.contextPath}/img/field.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -48,7 +48,7 @@
             <article class="media">       
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="${pageContext.request.contextPath}/img/matchFoot.png" alt="Image">
+                        <img src="${pageContext.request.contextPath}/img/match.png" alt="Image">
                     </figure>
                 </div>
                 <div class="media-content">

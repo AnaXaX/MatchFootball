@@ -67,9 +67,11 @@ public class AccesEntraineur extends HttpServlet {
 
         /*Control Connexion*/
         if (act.equals("Connexion")) {
+            
             String login = request.getParameter("login").trim();
             String password = request.getParameter("password");
             Entraineur e = sessionEntraineur.authentification(login, password);
+            
             if (e != null) {
                 Equipe eq = sessionEntraineur.rechercheEquipeParEntraineur(e);
                 session.setAttribute("equipe", eq);

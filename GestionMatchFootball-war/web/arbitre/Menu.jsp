@@ -1,20 +1,34 @@
-<!-- Forcer la redirection vers le menu si le token n'existe pas , pour éviter les petits malins d'accéder à cette vue par URL-->
+<%@page import="entities.Arbitre"%>
 
-<%     
-    RequestDispatcher rd = request.getRequestDispatcher("/Connexion.jsp");   
-    if(session.getAttribute("sessionArbitre")==null)
-    rd.forward(request, response);
-%>
-<%-- jsp:useBean id="sessionFederation" scope="session" class=""></jsp:useBean--%>
+<%@ include file="/arbitre/RedirectionArbitre.jsp" %>
+
 <%@ include file="../header.jsp"%>
         <section class="section animated fadeIn">
             
-            <a href="${pageContext.request.contextPath}/AccesFederation?action=afficherEntraineur" >
+    <div class="box">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <center>
+                        <p class="title">
+                            <% Arbitre a = (Arbitre) session.getAttribute("sessionArbitre"); %>
+                            <strong><%=(a.getNom()+' '+a.getPrenom())%></strong>
+                        </p>
+                        <p class="subtitle">
+                            Nombre de matchs affectés : <strong><%=a.getHistoriqueMatchs().size()%></strong>
+                        </p>                   
+                    </center>
+                </div>
+            </div>
+        </article>
+    </div>
+                      
+            <a href="${pageContext.request.contextPath}/AccesArbitre?action=afficherMatchResultat" >
                 <div class="box">
                     <article class="media">
                         <div class="media-left">
                             <figure class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                                <img src="${pageContext.request.contextPath}/img/scoreboard.png" alt="Image">
                             </figure>
                         </div>
                         <div class="media-content">
@@ -27,88 +41,26 @@
                         </div>
                     </article>
                 </div>
-            </a>  
-            
-            <a href="${pageContext.request.contextPath}/federation/CreerArbitre.jsp">
+            </a>           
+                 <a href="${pageContext.request.contextPath}/AccesArbitre?action=afficherMatchFautes" >
                 <div class="box">
                     <article class="media">
                         <div class="media-left">
                             <figure class="image is-64x64">
-                                <img src="${pageContext.request.contextPath}/img/Referee.png" alt="Image">
+                                <img src="${pageContext.request.contextPath}/img/yellow-card.png" alt="Image">
                             </figure>
                         </div>
                         <div class="media-content">
                             <div class="content">
                                 <p>
-                                    <strong>Créer des arbitres</strong><br>
-                                    Vous pouvez dans ce menu créer de nouveaux arbitres
+                                    <strong>Saisir fautes</strong><br>
+                                    Vous pouvez dans ce menu saisir les fautes relatifs à un match arbitré
                                 </p>
                             </div>
                         </div>
                     </article>
                 </div>
-            </a>
-            
-             <a href="${pageContext.request.contextPath}/federation/CreerEntraineur.jsp">
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>Créer des Entraineurs</strong><br>
-                                    Vous pouvez dans ce menu créer de nouveaux entraineurs
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </a>
-                
-            <%--
-             <a href="${pageContext.request.contextPath}/AccesFederation?action=affecterJoueurEquipe">
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="${pageContext.request.contextPath}/img/playerPlus.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                   <strong>Créer des Joueurs</strong><br>
-                                    Vous pouvez dans ce menu créer de nouveaux joueurs
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </a>
-            --%>
-                 <a href="${pageContext.request.contextPath}/federation/CreerJoueur.jsp">
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="${pageContext.request.contextPath}/img/playerPlus.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                   <strong>Créer des Joueurs</strong><br>
-                                    Vous pouvez dans ce menu créer de nouveaux joueurs
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </a>
+            </a>      
                             
             <form method="post" action="${pageContext.request.contextPath}/AccesFederation">                     
                 <input value="deconnexion" name="action" type="hidden">

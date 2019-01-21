@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Joueur implements Serializable {
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval=true)
+    @OneToMany
     private List<Equipe> historiqueEquipes;
 
     public List<Equipe> getHistoriqueEquipes() {

@@ -25,27 +25,6 @@ public class MatchFoot implements Serializable {
         else
             return true;
     }
-    /*
-    @OneToMany
-    private List<Joueur> effectifEquipeInvitee;
-
-    public List<Joueur> getEffectifEquipeInvitee() {
-        return effectifEquipeInvitee;
-    }
-
-    public void setEffectifEquipeInvitee(List<Joueur> effectifEquipeInvitee) {
-        this.effectifEquipeInvitee = effectifEquipeInvitee;
-    }
-    @OneToMany
-    private List<Joueur> effectifEquipeReceveuse;
-
-    public List<Joueur> getEffectifEquipeReceveuse() {
-        return effectifEquipeReceveuse;
-    }
-
-    public void setEffectifEquipeReceveuse(List<Joueur> effectifEquipeReceveuse) {
-        this.effectifEquipeReceveuse = effectifEquipeReceveuse;
-    }*/
     
     @OneToMany
     private List<Effectif> effectif;
