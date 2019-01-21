@@ -2,6 +2,7 @@ package servlet;
 
 import entities.Entraineur;
 import entities.Equipe;
+import entities.MatchFoot;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,6 +25,7 @@ public class AccesFederation extends HttpServlet {
 
     @EJB
     private SessionFederationLocal sessionFederation;
+    
 
     public final String ATT_SESSION_FEDERATION = "sessionFederation";
 
@@ -120,6 +122,35 @@ public class AccesFederation extends HttpServlet {
         if (act.equals("afficherCreerMatch")) {
             afficherCreerMatch(request, response);
         }
+        
+        if(act.equals("modifierMatch")){
+            MatchFoot m = sessionFederation.rechercheMatchId(Long.parseLong(request.getParameter("idMatch")));
+            request.setAttribute("matchAModifier", sessionFederation.rechercheMatchId(Long.parseLong(request.getParameter("idMatch"))));
+            jspClient = "/federation/ModifierMatch.jsp";
+        }
+        
+        if(act.equals("matchAModifier")){
+            request.setAttribute("listMatchs", sessionFederation.listMatchs());
+            jspClient = "/federation/ChoixMatchs.jsp";
+        }
+        if(act.equals("doModifierMatch")){
+            String date = request.getParameter("dateMatch");
+            String match = request.getParameter("match");
+            if (date == null || date.trim().isEmpty() || match == null || match.trim().isEmpty()  ) {
+                request.setAttribute("msgError", ERREUR_CHAMP);
+                request.setAttribute("listMatchs", sessionFederation.listMatchs());
+                jspClient = "/federation/ChoixMatchs.jsp";
+            } else {
+                sessionFederation.modifierMatch(Timestamp.valueOf(date), sessionFederation.rechercheMatchId(Long.parseLong(match)));
+                jspClient = "/federation/Menu.jsp";
+            }
+
+            
+            request.setAttribute("listMatchs", sessionFederation.listMatchs());
+            jspClient = "/federation/ChoixMatchs.jsp";
+        }
+        
+        
 
         if (act.equals("creerMatch")) {
             String arbitre = request.getParameter("arbitreID");

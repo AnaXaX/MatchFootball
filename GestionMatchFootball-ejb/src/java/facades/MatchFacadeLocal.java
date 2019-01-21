@@ -49,8 +49,12 @@ public interface MatchFacadeLocal {
 
     List rechercheMatch(Timestamp dateD, Timestamp dateF);
 
+
     List listMatchsArbitre(Arbitre arbitre);
 
     void setScoreMatchArbitre(MatchFoot match, int scoreEquipeReceveuse, int scoreEquipeInvitee);
+
+    void modifierMatch(Timestamp date, MatchFoot match);
+
 
 }

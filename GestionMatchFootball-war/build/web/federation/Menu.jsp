@@ -102,6 +102,26 @@
             </article>
         </div>
     </a>
+                    
+    <a href="${pageContext.request.contextPath}/AccesFederation?action=matchAModifier">
+        <div class="box">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="${pageContext.request.contextPath}/img/match.png" alt="Match">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Modifier la date d'un match</strong><br>
+                            Vous pouvez dans ce menu modifier la date d'un match
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </a>
 
     <form method="post" action="${pageContext.request.contextPath}/AccesFederation">                     
         <input value="deconnexion" name="action" type="hidden">
