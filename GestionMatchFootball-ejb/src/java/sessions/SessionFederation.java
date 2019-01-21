@@ -83,6 +83,13 @@ public class SessionFederation implements SessionFederationLocal {
         if(arbitreFacade.disponible(arbitre,date) && equipeFacade.disponible(equipeInvitee,date) && equipeFacade.disponible(equipeReceveuse,date)  )
             matchFacade.creerMatch(date, equipeFacade.rechercheEquipe(equipeReceveuse), equipeFacade.rechercheEquipe(equipeInvitee), arbitreFacade.rechercheArbitre(arbitre));
     }
+    
+    
+    @Override
+    public void modifierMatch(Timestamp date, MatchFoot match) {
+        if(arbitreFacade.disponible(match.getArbitre().getId(),date) && equipeFacade.disponible(match.getEquipeInvitee().getId(),date) && equipeFacade.disponible(match.getEquipeReceveuse().getId(),date)  )
+            matchFacade.modifierMatch(date, match);
+    }
 
     @Override
     public List listEntraineur() {
@@ -118,7 +125,17 @@ public class SessionFederation implements SessionFederationLocal {
     public void modifierEquipe(long idEquipe, String nom, long idEntraineur) {
         equipeFacade.modifierEquipe(equipeFacade.rechercheEquipe(idEquipe), nom, entraineurFacade.rechercheEntraineur(idEntraineur));
     }
+
+    @Override
+    public java.util.List<entities.MatchFoot> listMatchs() {
+        return matchFacade.listMatchs();
+    }
     
+    
+    @Override
+    public MatchFoot rechercheMatchId(long id) {
+        return matchFacade.rechercheMatchId(id);
+    }
     
 
 

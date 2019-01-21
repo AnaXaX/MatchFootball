@@ -54,6 +54,13 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
         em.merge(equipeReceveuse);
         em.merge(equipeInvitee);
     }
+    
+    
+    @Override
+    public void modifierMatch(Timestamp date, MatchFoot match) {
+        match.setDate(date);
+        em.merge(match);
+    }
 
     @Override
     public void annulerMatch(MatchFoot match) {
@@ -153,6 +160,7 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
         requete.setParameter("dateF", dateF);
         return requete.getResultList();
     }
+
     
     
 }

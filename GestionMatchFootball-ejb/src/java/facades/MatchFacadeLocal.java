@@ -49,4 +49,6 @@ public interface MatchFacadeLocal {
 
     List rechercheMatch(Timestamp dateD, Timestamp dateF);
 
+    void modifierMatch(Timestamp date, MatchFoot match);
+
 }
