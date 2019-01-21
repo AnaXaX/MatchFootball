@@ -43,4 +43,6 @@ public interface MatchFacadeLocal {
 
     void affecterMatch(List joueurs, MatchFoot match, Equipe e);
 
+    java.util.List<entities.MatchFoot> listMatchs();
+
 }

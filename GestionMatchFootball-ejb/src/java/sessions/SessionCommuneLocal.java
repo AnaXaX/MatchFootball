@@ -27,5 +27,7 @@ public interface SessionCommuneLocal {
 
     List classement();
 
+    java.util.List<entities.MatchFoot> listMatchs();
+
     
 }

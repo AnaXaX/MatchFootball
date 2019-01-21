@@ -68,6 +68,8 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
         return requete.getResultList();
     }
 
+    
+    
     @Override
     public MatchFoot rechercheMatchId(long id) {
         MatchFoot m = null;
@@ -113,7 +115,6 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
                 em.merge(match);
                 em.remove(effectifASupprimer);
             }
-
             Effectif eR = new Effectif();
             eR.setListeJoueurs(joueurs);
             eR.setReceveuseInvitee(ReceveuseInvitee.R);
@@ -123,6 +124,11 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
             //match.setEffectifEquipeReceveuse(joueurs);
         }
         em.merge(match);
+    }
+
+    @Override
+    public java.util.List<entities.MatchFoot> listMatchs() {
+        return getEntityManager().createQuery("select m from MatchFoot as m ").getResultList();
     }
 
 }

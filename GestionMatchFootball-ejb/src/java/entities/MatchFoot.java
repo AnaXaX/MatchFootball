@@ -25,7 +25,7 @@ public class MatchFoot implements Serializable {
         else
             return true;
     }
-    
+    /*
     @OneToMany
     private List<Joueur> effectifEquipeInvitee;
 
@@ -36,7 +36,6 @@ public class MatchFoot implements Serializable {
     public void setEffectifEquipeInvitee(List<Joueur> effectifEquipeInvitee) {
         this.effectifEquipeInvitee = effectifEquipeInvitee;
     }
-    
     @OneToMany
     private List<Joueur> effectifEquipeReceveuse;
 
@@ -46,7 +45,7 @@ public class MatchFoot implements Serializable {
 
     public void setEffectifEquipeReceveuse(List<Joueur> effectifEquipeReceveuse) {
         this.effectifEquipeReceveuse = effectifEquipeReceveuse;
-    }
+    }*/
     
     @OneToMany
     private List<Effectif> effectif;

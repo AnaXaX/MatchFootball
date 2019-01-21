@@ -21,6 +21,50 @@
             </article>
         </div>
     </a>
+    <a href="${pageContext.request.contextPath}/AccesCommun?action=afficherEquipeMatch">
+        <div class="box">
+            <article class="media">       
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="${pageContext.request.contextPath}/img/matchFoot.png" alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Afficher les matchs</strong>
+                            <br>
+                            Afficher les matchs d'une équipe
+                        </p>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </a>
+    
+    <a href="${pageContext.request.contextPath}/AccesCommun?action=afficherEffectifMatch">
+        <div class="box">
+            <article class="media">       
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="${pageContext.request.contextPath}/img/matchFoot.png" alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Afficher l'effectif d'un match</strong>
+                            <br>
+                            Afficher l'effectif d'un match
+                        </p>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </a>                
+                    
     <a href="${pageContext.request.contextPath}/AccesCommun?action=afficherEquipe">
         <div class="box">
             <article class="media">   

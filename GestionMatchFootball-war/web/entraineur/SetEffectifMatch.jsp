@@ -15,8 +15,9 @@
               MatchFoot match = (MatchFoot) request.getAttribute("match");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy à HH:mm");
     %>         
-    <h1 class="title">Liste des joueurs à affecter pour le match du <%=dateFormat.format(match.getDate())%> arbitré par <%=match.getArbitre().getNom()+" "+match.getArbitre().getPrenom()%></h1>
-    <h1 class="subtitle"><%=match.getEquipeInvitee().getNom()+" VS "+match.getEquipeReceveuse().getNom()%></h1>
+    <h1 class="title"><%=match.getEquipeInvitee().getNom()+" VS "+match.getEquipeReceveuse().getNom()%></h1>
+    <h1 class="subtitle">Liste des joueurs à affecter pour le match du <%=dateFormat.format(match.getDate())%> arbitré par <%=match.getArbitre().getNom()+" "+match.getArbitre().getPrenom()%></h1>
+    
 
     <form method="post" action="${pageContext.request.contextPath}/AccesEntraineur">
         <div class="columns is-multiline">
