@@ -62,13 +62,11 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
 
     @Override
     public List afficherMatchsTactique(Equipe equipe) {
-        Query requete = getEntityManager().createQuery("select m from MatchFoot as m where (m.equipeInvitee=:equipe OR m.equipeReceveuse=:equipe) AND CURRENT_TIMESTAMP < m.dateMatch ");
+        Query requete = getEntityManager().createQuery("select m from MatchFoot as m where (m.equipeInvitee=:equipe OR m.equipeReceveuse=:equipe) AND CURRENT_TIMESTAMP <= m.dateMatch ");
         requete.setParameter("equipe", equipe);
         return requete.getResultList();
     }
 
-    
-    
     @Override
     public MatchFoot rechercheMatchId(long id) {
         MatchFoot m = null;
@@ -129,15 +127,15 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
     public List listMatchs() {
         return getEntityManager().createQuery("select m from MatchFoot as m order by m.dateMatch").getResultList();
     }
-    
+
     @Override
     public List rechercheMatch(Timestamp date) {
         Timestamp dateMin = ((Timestamp) date.clone());
         Timestamp dateMax = ((Timestamp) date.clone());
-        long duration = ((1380 * 60)/* + 00*/) * 1000;
-        dateMin.setTime(date.getTime() );
+        long duration = ((1380 * 60)/* + 00*/) * 1000; // rajout de 23 heures pour avoir toute la journée
+        dateMin.setTime(date.getTime());
         dateMax.setTime(date.getTime() + duration);
-        
+        // journée de 00:00:00 à 23:00:00
         Query requete = getEntityManager().createQuery("select m from MatchFoot as m where  m.dateMatch>=:dateMin AND m.dateMatch<=:dateMax");
         requete.setParameter("dateMin", dateMin);
         requete.setParameter("dateMax", dateMax);
@@ -153,6 +151,18 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
         requete.setParameter("dateF", dateF);
         return requete.getResultList();
     }
-    
-    
+
+    @Override
+    public List listMatchsArbitre(Arbitre arbitre) {
+        Query requete = getEntityManager().createQuery("select m from MatchFoot as m where m.dateMatch<CURRENT_TIMESTAMP AND m.arbitre=:arbitre");
+        requete.setParameter("arbitre", arbitre);
+        return requete.getResultList();
+    }
+
+    @Override
+    public void setScoreMatchArbitre(MatchFoot match, int scoreEquipeReceveuse, int scoreEquipeInvitee) {
+        match.setScoreEquipeReceveuse(scoreEquipeReceveuse);
+        match.setScoreEquipeInvitee(scoreEquipeInvitee);
+        em.merge(match);
+    }
 }

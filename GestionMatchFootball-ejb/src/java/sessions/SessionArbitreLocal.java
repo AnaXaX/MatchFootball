@@ -6,6 +6,9 @@
 package sessions;
 
 import entities.Arbitre;
+import entities.Joueur;
+import entities.MatchFoot;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +19,15 @@ import javax.ejb.Local;
 public interface SessionArbitreLocal {
 
     Arbitre authentification(String login, String mdp);
+
+    List listMatchsResultat(Arbitre arbitre);
+
+    MatchFoot rechercheMatch(long idMatch);
+
+    void setScoreMatch(long idMatch, int scoreEquipeReceveuse, int scoreEquipeInvitee);
+
+    Joueur rechercheJoueur(long idJoueur);
+
+    void setFauteJoueurMatch(long idJoueur, long idMatch, boolean cartonJaune, boolean cartonRouge);
     
 }

@@ -112,14 +112,14 @@ public class AccesCommun extends HttpServlet {
         
             if (act.equals("chercherMatchs")) {
             if (request.getParameter("dateMatch") != null && !request.getParameter("dateMatch").isEmpty()) {
-                //System.out.println(request.getParameter("dateMatch"));
+                System.out.println(request.getParameter("dateMatch"));
                if (request.getParameter("dateMatch").length() < 20) {
-                   // System.out.println("Date d l match : "+Timestamp.valueOf(request.getParameter("dateMatch")));
+                    System.out.println("Date d l match : "+Timestamp.valueOf(request.getParameter("dateMatch")));
                     request.setAttribute("listMatchs",  sessionCommune.rechercheMatch(Timestamp.valueOf(request.getParameter("dateMatch"))));
                     jspClient = "/accueil/AfficherMatchs.jsp";
                 } else {
                     String date[] = request.getParameter("dateMatch").split("au");
-                    // System.out.println("Date d l match debut : "+Timestamp.valueOf(date[0])+" fin :"+Timestamp.valueOf(date[1]));
+                     System.out.println("Date d l match debut : "+Timestamp.valueOf(date[0])+" fin :"+Timestamp.valueOf(date[1]));
                      request.setAttribute("listMatchs",  sessionCommune.rechercheMatch(Timestamp.valueOf(date[0].trim()), Timestamp.valueOf(date[1].trim())));
                     jspClient = "/accueil/AfficherMatchs.jsp";
                 }
