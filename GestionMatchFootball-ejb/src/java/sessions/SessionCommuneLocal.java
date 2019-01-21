@@ -6,6 +6,7 @@
 package sessions;
 
 import entities.Equipe;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +30,7 @@ public interface SessionCommuneLocal {
 
     java.util.List<entities.MatchFoot> listMatchs();
 
-    
+    List rechercheMatch(Timestamp date);
+
+    List rechercheMatch(Timestamp dateD, Timestamp dateF);
 }

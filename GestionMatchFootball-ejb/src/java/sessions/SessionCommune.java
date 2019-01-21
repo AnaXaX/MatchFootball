@@ -4,6 +4,7 @@ import entities.Equipe;
 import facades.EquipeFacadeLocal;
 import facades.JoueurFacadeLocal;
 import facades.MatchFacadeLocal;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
@@ -56,6 +57,17 @@ public class SessionCommune implements SessionCommuneLocal {
     public java.util.List<entities.MatchFoot> listMatchs() {
         return matchFacade.listMatchs();
     }
+    
+      @Override
+    public List rechercheMatch(Timestamp date) {
+        return matchFacade.rechercheMatch(date);
+    }
+
+    @Override
+    public List rechercheMatch(Timestamp dateD, Timestamp dateF) {
+        return matchFacade.rechercheMatch(dateD,dateF);
+    }
+    
     
     
     

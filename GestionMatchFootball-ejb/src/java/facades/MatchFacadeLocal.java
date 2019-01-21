@@ -45,4 +45,8 @@ public interface MatchFacadeLocal {
 
     java.util.List<entities.MatchFoot> listMatchs();
 
+    List rechercheMatch(Timestamp date);
+
+    List rechercheMatch(Timestamp dateD, Timestamp dateF);
+
 }

@@ -130,5 +130,28 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
     public java.util.List<entities.MatchFoot> listMatchs() {
         return getEntityManager().createQuery("select m from MatchFoot as m ").getResultList();
     }
+    
+    @Override
+    public List rechercheMatch(Timestamp date) {
+        Timestamp dateMin = ((Timestamp) date.clone());
+        Timestamp dateMax = ((Timestamp) date.clone());
+        long duration = ((1380 * 60)/* + 00*/) * 1000;
+        dateMin.setTime(date.getTime() );
+        dateMax.setTime(date.getTime() + duration);
+        
+        Query requete = getEntityManager().createQuery("select m from MatchFoot as m where  m.dateMatch>=:dateMin AND m.dateMatch<=:dateMax");
+        requete.setParameter("dateMin", dateMin);
+        requete.setParameter("dateMax", dateMax);
+        return requete.getResultList();
+    }
 
+    @Override
+    public List rechercheMatch(Timestamp dateD, Timestamp dateF) {
+        Query requete = getEntityManager().createQuery("select m from MatchFoot as m where m.dateMatch>=:dateD AND m.dateMatch<=:dateF");
+        requete.setParameter("dateD", dateD);
+        long duration = ((1380 * 60)/* + 00*/) * 1000;
+        dateF.setTime(dateF.getTime() + duration);
+        requete.setParameter("dateF", dateF);
+        return requete.getResultList();
+    }
 }
