@@ -1,6 +1,7 @@
 package sessions;
 
 import entities.Equipe;
+import entities.MatchFoot;
 import facades.EquipeFacadeLocal;
 import facades.JoueurFacadeLocal;
 import facades.MatchFacadeLocal;
@@ -66,6 +67,11 @@ public class SessionCommune implements SessionCommuneLocal {
     @Override
     public List rechercheMatch(Timestamp dateD, Timestamp dateF) {
         return matchFacade.rechercheMatch(dateD,dateF);
+    }
+
+    @Override
+    public MatchFoot rechercheMatchId(long id) {
+        return matchFacade.rechercheMatchId(id);
     }
     
     

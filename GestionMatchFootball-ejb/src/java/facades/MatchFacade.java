@@ -153,4 +153,6 @@ public class MatchFacade extends AbstractFacade<MatchFoot> implements MatchFacad
         requete.setParameter("dateF", dateF);
         return requete.getResultList();
     }
+    
+    
 }

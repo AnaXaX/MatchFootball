@@ -46,7 +46,5 @@ public interface SessionFederationLocal {
 
     void modifierEquipe(long idEquipe, String nom, long idEntraineur);
 
-    void supprimerEquipe(long idEquipe);
-
     
 }

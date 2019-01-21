@@ -5,9 +5,12 @@
  */
 package servlet;
 
+import entities.Effectif;
 import entities.Equipe;
+import entities.MatchFoot;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,7 +45,7 @@ public class AccesCommun extends HttpServlet {
         System.out.println(act);
 
         if (act.equals("afficherEquipe")) {
-
+            jspClient = "/accueil/ChoixEquipe.jsp";
             request.setAttribute("listEquipes", sessionCommune.listEquipes());
         }
 
@@ -73,11 +76,14 @@ public class AccesCommun extends HttpServlet {
                 jspClient = "/AccesCommun?action=afficherEffectifMatch";
                 request.setAttribute("msgError", "Une erreur est produite lors du choix de l'équipe");
             } else {
-                Long l = Long.parseLong(request.getParameter("equipeID"));
-                Equipe e = sessionCommune.rechercheEquipe(l);
-                request.setAttribute("matchsEquipe", e.getHistoriqueMatchs());
+                Long l = Long.parseLong(request.getParameter("idMatch"));
+                MatchFoot match = sessionCommune.rechercheMatchId(l);
+                List<Effectif> eff = match.getEffectif();
+                request.setAttribute("effectifsMatch", eff);
+                request.setAttribute("nomEquipeReceveuse", match.getEquipeReceveuse().getNom());
+                request.setAttribute("nomEquipeInvitee", match.getEquipeInvitee().getNom());
 
-                jspClient = "/accueil/AfficherMatchsEquipe.jsp";
+                jspClient = "/accueil/AfficherEffectifsMatch.jsp";
 
             }
         }

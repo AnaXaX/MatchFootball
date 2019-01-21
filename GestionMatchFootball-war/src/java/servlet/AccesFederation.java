@@ -162,6 +162,7 @@ public class AccesFederation extends HttpServlet {
             jspClient = "/federation/ChoixEquipeModifier.jsp";
         }
 
+        /*
         if (act.equals("supprimerEquipes")) {
             if (request.getParameterValues("idEquipes") != null) {
                 String[] equipesId = request.getParameterValues("idEquipes");
@@ -179,6 +180,7 @@ public class AccesFederation extends HttpServlet {
             request.setAttribute("listEquipes", sessionFederation.listEquipes());
             jspClient = "/federation/ChoixEquipeSupprimer.jsp";
         }
+        */
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
