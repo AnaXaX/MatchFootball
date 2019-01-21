@@ -62,7 +62,7 @@ public class Effectif implements Serializable {
     @OneToMany
     private List<Joueur> listeJoueurs;
 
-    public List getListeJoueurs() {
+    public List<Joueur> getListeJoueurs() {
         return listeJoueurs;
     }
 

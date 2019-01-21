@@ -56,6 +56,57 @@ public class AccesArbitre extends HttpServlet {
             session.setAttribute(ATT_SESSION_ARBITRE, null); //Enlever le Token
             jspClient = "/arbitre/Connexion.jsp";
         }
+        /*Fin Deconnexion*/
+
+        if (act.equals("setScoreMatch")) {
+            if (request.getParameter("scoreEquipeReceveuse") != null && request.getParameter("scoreEquipeInvitee") != null) {
+                sessionArbitre.setScoreMatch(Long.parseLong(request.getParameter("idMatch")), Integer.parseInt(request.getParameter("scoreEquipeReceveuse")), Integer.parseInt(request.getParameter("scoreEquipeInvitee")));
+                jspClient = "/arbitre/Menu.jsp";
+
+            }
+        }
+
+        if (act.equals("ModifierScoreMatch")) {
+            if (request.getParameter("idMatch") != null) {
+                request.setAttribute("match", sessionArbitre.rechercheMatch(Long.parseLong(request.getParameter("idMatch"))));
+                jspClient = "/arbitre/SetScoreMatch.jsp";
+            } else {
+                request.setAttribute("listMatchs", sessionArbitre.listMatchsResultat((Arbitre) session.getAttribute(ATT_SESSION_ARBITRE)));
+                jspClient = "/arbitre/ChoixMatchResultat.jsp";
+            }
+        }
+
+        if (act.equals("afficherMatchResultat")) {
+            request.setAttribute("listMatchs", sessionArbitre.listMatchsResultat((Arbitre) session.getAttribute(ATT_SESSION_ARBITRE)));
+            jspClient = "/arbitre/ChoixMatchResultat.jsp";
+        }
+
+        if (act.equals("SetFauteJoueurMatch")) {
+            if(request.getParameter("cartonJaune") != null && request.getParameter("cartonRouge") != null){
+                sessionArbitre.setFauteJoueurMatch(Long.parseLong(request.getParameter("idJoueur")),Long.parseLong(request.getParameter("idMatch")),Boolean.parseBoolean(request.getParameter("cartonJaune")),Boolean.parseBoolean(request.getParameter("cartonRouge")));
+            }
+        }
+        if (act.equals("ChoixJoueurFauteMatch")) {
+            request.setAttribute("match", sessionArbitre.rechercheMatch(Long.parseLong(request.getParameter("idMatch"))));
+            request.setAttribute("joueur", sessionArbitre.rechercheJoueur(Long.parseLong(request.getParameter("idJoueur"))));
+            jspClient = "/arbitre/SetFauteJoueurMatch.jsp";
+        }
+
+        if (act.equals("ModifierFauteMatch")) {
+            if (request.getParameter("idMatch") != null) {
+                request.setAttribute("match", sessionArbitre.rechercheMatch(Long.parseLong(request.getParameter("idMatch"))));
+                jspClient = "/arbitre/ChoixJoueurMatchFaute.jsp";
+            } else {
+                request.setAttribute("listMatchs", sessionArbitre.listMatchsResultat((Arbitre) session.getAttribute(ATT_SESSION_ARBITRE)));
+                jspClient = "/arbitre/ChoixMatchFaute.jsp";
+            }
+        }
+
+        if (act.equals("afficherMatchFautes")) {
+            request.setAttribute("listMatchs", sessionArbitre.listMatchsResultat((Arbitre) session.getAttribute(ATT_SESSION_ARBITRE)));
+            jspClient = "/arbitre/ChoixMatchFaute.jsp";
+        }
+
         RequestDispatcher rd = getServletContext().getRequestDispatcher(jspClient);
         rd.forward(request, response);
     }

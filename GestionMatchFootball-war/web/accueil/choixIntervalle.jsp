@@ -5,9 +5,10 @@
 
 <section class="section" style="margin-top:2rem">
     <form method="post" action="${pageContext.request.contextPath}/AccesCommun">         
-                    
+                        <label class="label">Vous pouvez choisir un jour ou un intervalle de jours ( double cliquer si vous voulez choisir qu'un jour )</label>
         <div class="field">
             <p class="control has-icons-left">
+            
                 <input name="dateMatch" class="input has-text-info is-fullwidth is-large has-text-centered flatpickr flatpickr-input" type="text" placeholder="Choisir un jour ou un intervalle pour les dates des matchs" data-id="datetime" readonly="readonly">         
                 <span class="icon is-small is-left">
                     <i class="far fa-calendar-alt"></i>
