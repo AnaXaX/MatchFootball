@@ -44,7 +44,7 @@
             <td class="has-text-centered"><%=e.butsMarques()%></td>
             <td class="has-text-centered"><%=e.butsRecus()%></td>
             <td class="has-text-centered"><%=e.butsMarques()-e.butsRecus()%></td>
-            <td class="has-text-centered"><%=e.getPoints()%></td>
+            <td class="has-text-centered"><%=e.calculerPointsFromHistorique()%></td>
         </tr>
         <%}%>
     </table>     
